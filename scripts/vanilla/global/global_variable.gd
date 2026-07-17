@@ -19,3 +19,8 @@ var playing_data:Dictionary = {}
 
 var character_on_stage:Array = ["asari","player"]
 var character_ping:String = "asari"
+
+var stage_temp:Dictionary = {
+	"clean":"(整洁)",
+	"description":"'空气中弥漫着一股花香'"
+}

@@ -1,20 +1,28 @@
 extends Control
 
 # UI中间段展开状态
-var mid_on:bool = true
+var mid_on:bool = false
 
 var check_result:Dictionary = {}
 
 var load_holder:String
 
+# 菜单相关
 @onready var main_ani:AnimationPlayer = $MainAniPlayer
-@onready var mid_ani:AnimationPlayer = $MainContainer/TripCut/MidAniPlayer
 @onready var main_menu_mid = $MainMenu/Mid/Mid
+
+# 主界面相关
+@onready var mid_ani:AnimationPlayer = $MainContainer/TripCut/MidAniPlayer
+@onready var mid_env_status_label:RichTextLabel = $MainContainer/TripCut/Mid/MidContainer/EnvStatus
+@onready var mid_stage_status_label:RichTextLabel = $MainContainer/TripCut/Mid/MidContainer/StageStatus
+
 const main_menu_icon = preload("res://stage/mainmenu_icon.tscn")
 
 func _ready() -> void:
 	GlobalSignal.connect("_no_module_found",Callable(self,"show_warning"))
 	GlobalSignal.connect("_ani_menu_out",Callable(self,"menu_out"))
+	GlobalSignal.connect("_stage_switch",Callable(self,"stage_change"))
+	GlobalSignal.connect("_stage_switch_done",Callable(self,"stage_change_clear"))
 	GlobalSignal.connect("_init_load_done",Callable(self,"mid_show"))
 	check_result = GlobalFunc.check_module()
 	if check_result != {}:
@@ -40,8 +48,26 @@ func menu_out(any:String):
 	load_holder = any
 	main_ani.play("主菜单淡出")
 
+func stage_change(any:Array):
+	mid_ani.play("总界面关")
+	await mid_ani.animation_finished
+	var s_text = GlobalVar.module_temp_data["stage"][any[0]][GlobalSys.system_lang_zone]
+	var d_text = GlobalVar.module_temp_data["stage"][any[0]][any[1]][GlobalSys.system_lang_zone]
+	mid_stage_status_label.text = s_text + " " + d_text + GlobalVar.stage_temp["clean"] + " " + GlobalVar.stage_temp["description"]
+	GlobalSignal.emit_signal("_stage_switch_done")
+
+func stage_change_clear():
+	mid_ani.play("总界面开")
+
 func mid_show():
 	mid_ani.play("总界面开")
 
 func _on_main_ani_player_animation_finished(anim_name: StringName) -> void:
 	GlobalFunc._load_module(load_holder)
+
+func _on_mid_ani_player_animation_finished(anim_name: StringName) -> void:
+	match mid_on:
+		true:
+			mid_on = false
+		false:
+			mid_on = true

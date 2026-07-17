@@ -19,20 +19,20 @@ func check_module():
 	if folder_names.size() == 0:
 		GlobalSignal.emit_signal("_no_module_found")
 		return {}
-	for name in folder_names:
-		print_debug("发现模组：" + name)
-		var cfg = "user://modules/" + name + "/module_cfg.json"
+	for t_name in folder_names:
+		print_debug("发现模组：" + t_name)
+		var cfg = "user://modules/" + t_name + "/module_cfg.json"
 		# 读取配置文件里的基本数据 加载并返回
 		if dir.file_exists(cfg):
-			print_debug("检测到" + name + "配置文件")
+			print_debug("检测到" + t_name + "配置文件")
 			var temp = FileAccess.open(cfg,FileAccess.READ)
 			var text = temp.get_as_text()
 			var data = JSON.parse_string(text)
 			temp.close()
-			results[name] = data
+			results[t_name] = data
 			print_debug("模组数据可用")
 		else:
-			print_debug("模组" + name + "配置文件不存在")
+			print_debug("模组" + t_name + "配置文件不存在")
 	return results
 
 func _load_module(m_name:String):
@@ -63,6 +63,10 @@ func _load_module(m_name:String):
 			if dir.file_exists(personality_folder_path):
 				_get_and_set(personality_folder_path, "personality")
 			print_debug("性格导入完成")
+			var stage_folder_path = GlobalVar.module_native_path + GlobalVar.module_relate_path["stage"]
+			if dir.file_exists(stage_folder_path):
+				_get_and_set(stage_folder_path, "stage")
+			print_debug("场景导入完成")
 			# 初始化角色索引
 			var character_folder_path = GlobalVar.module_native_path + GlobalVar.module_relate_path["character"]
 			if dir.dir_exists(character_folder_path):
@@ -102,12 +106,13 @@ func _get_and_set(path:String,target_block:String):
 	var temp = FileAccess.open(path,FileAccess.READ)
 	var text = temp.get_as_text()
 	var data = JSON.parse_string(text)
-	temp.close()
 	match target_block:
 		"variable":
 			GlobalVar.module_temp_data["variable"] = data
 		"personality":
 			GlobalVar.module_temp_data["personality"] = data
+		"stage":
+			GlobalVar.module_temp_data["stage"] = data
 		"character":
 			#data["detail"] = {}
 			GlobalVar.module_temp_data["character"][data["info"]["sid"]] = data
@@ -115,10 +120,12 @@ func _get_and_set(path:String,target_block:String):
 			GlobalVar.module_temp_data["colortable"] = data
 		"event":
 			GlobalVar.module_temp_data["event"][data["info"]["sid"]] = data["info"]
-			GlobalVar.module_temp_data["event"]["events"] = {}
+			if GlobalVar.module_temp_data["event"].has("events") == false:
+				GlobalVar.module_temp_data["event"]["events"] = {}
 			var arr = data["events"].keys()
 			for i in arr:
 				GlobalVar.module_temp_data["event"]["events"][i] = {}
+	temp.close()
 
 # 比对索引返回数据
 func _match_event(id:String):
@@ -133,23 +140,34 @@ func _match_event(id:String):
 			var t_list = data["events"].keys()
 			if t_list.has(id):
 				GlobalVar.playing_data = data["events"][id]
-	if GlobalVar.playing_data["character"] == GlobalVar.character_on_stage:
+	# 用去除法算事件的角色触发条件
+	var character_count = GlobalVar.playing_data["character"]
+	for i in GlobalVar.character_on_stage:
+		if character_count.has(i):
+			character_count.erase(i)
+	if character_count.size() == 0:
+		# 复杂条件判断区域
 		var condition = GlobalVar.playing_data["condition"]
-		if GlobalVar.character_json_path.keys().has(condition[0]):
-			if GlobalVar.module_temp_data["character"].keys().has(condition[0]):
-				if condition.size() == 5:
-					match condition[3]:
-						"LE":
-							pass
-						"E":
-							pass
-						"GE":
-							if GlobalVar.module_temp_data["character"][condition[0]]["detail"][condition[1]][condition[2]] >= condition[4]:
+		if condition.size() != 0:
+			if GlobalVar.character_json_path.keys().has(condition[0]):
+				if GlobalVar.module_temp_data["character"].keys().has(condition[0]):
+					if condition.size() == 5:
+						match condition[3]:
+							"LE":
 								pass
-							else:
-								return
-		if GlobalVar.character_ping == condition[0]:
-			var playing_array = GlobalVar.playing_data["text"]["ping"]
+							"E":
+								pass
+							"GE":
+								if GlobalVar.module_temp_data["character"][condition[0]]["detail"][condition[1]][condition[2]] >= condition[4]:
+									pass
+								else:
+									return
+			if GlobalVar.character_ping == condition[0]:
+				var playing_array = GlobalVar.playing_data["text"]["ping"]
+				playing_array.reverse()
+				GlobalSignal.emit_signal("_return_event_content", playing_array)
+		else:
+			var playing_array = GlobalVar.playing_data["text"]["normal"]
 			playing_array.reverse()
 			GlobalSignal.emit_signal("_return_event_content", playing_array)
 		

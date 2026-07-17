@@ -193,7 +193,7 @@ stretch_mode = 6
 
 [node name="StageStatus" type="RichTextLabel" parent="MainContainer/TripCut/Mid/MidContainer" unique_id=982653293]
 layout_mode = 2
-text = "学校  中庭(整洁)  \"空气中弥漫着一股花香\""
+text = "???"
 fit_content = true
 scroll_active = false
 autowrap_mode = 0
@@ -367,7 +367,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 bbcode_enabled = true
-text = "[url=asari_first_meeting|点我试试！]点我试试！[/url]"
+text = "[url=first_stage|点我试试！]点我试试！[/url]"
 script = ExtResource("5_v00lw")
 
 [node name="CommandPanel" type="VBoxContainer" parent="MainContainer/TripCut/Mid/MidContainer/InteractArea" unique_id=1443622029]
@@ -562,5 +562,5 @@ libraries/ = SubResource("AnimationLibrary_blrdj")
 
 [connection signal="gui_input" from="MainContainer/TripCut/Mid/MidContainer/InteractArea/RichTextPool" to="MainContainer/TripCut/Mid/MidContainer/InteractArea/RichTextPool" method="_on_gui_input"]
 [connection signal="meta_clicked" from="MainContainer/TripCut/Mid/MidContainer/InteractArea/RichTextPool" to="MainContainer/TripCut/Mid/MidContainer/InteractArea/RichTextPool" method="_on_meta_clicked"]
-[connection signal="animation_finished" from="MainContainer/TripCut/MidAniPlayer" to="." method="_on_animation_player_animation_finished"]
+[connection signal="animation_finished" from="MainContainer/TripCut/MidAniPlayer" to="." method="_on_mid_ani_player_animation_finished"]
 [connection signal="animation_finished" from="MainAniPlayer" to="." method="_on_main_ani_player_animation_finished"]

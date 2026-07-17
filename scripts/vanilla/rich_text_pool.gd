@@ -35,17 +35,18 @@ func require_event_content(id:String):
 func get_event_content(result:Array):
 	playing_array = result
 	# 完成本地化处理
+	# 事件数组[-1]必须是文本
 	var regex = RegEx.new()
 	regex.compile("\\{([^}]+)\\}")
 	for i in playing_array:
-		if i[1] is not String:
+		if i[-1] is not String:
 			pass
 		else:
-			var results = regex.search_all(i[1])
+			var results = regex.search_all(i[-1])
 			for match in results:
 				var mark = match.get_string(1)
 				if GlobalVar.module_temp_data["character"].has(mark):
-					i[1] = i[1].replace(match.get_string(0), GlobalVar.module_temp_data["character"][str(mark)]["info"]["name"][GlobalSys.system_lang_zone])
+					i[-1] = i[-1].replace(match.get_string(0), GlobalVar.module_temp_data["character"][str(mark)]["info"]["name"][GlobalSys.system_lang_zone])
 	wait_for_choice = false
 
 # 推送文本 主逻辑
@@ -54,17 +55,22 @@ func push_event_content():
 		return
 	if playing_array.size() > 0:
 		var content = playing_array.pop_back()
-		var text = content[-1]
+		var t_text = content[-1]
 		if content[0] == "call":
-			choice_count += 1
-			self.append_text("\n" + "[url=" + content[2] + "|" + text + "]" +text + "[/url]")
-			if playing_array.size() != 0:
-				if playing_array[-1][0] == "call":
-					push_event_content()
-					return
-				else:
-					wait_for_choice = true
-					return
+			# 触发转场
+			if content[1] == "stage_switch":
+				GlobalSignal.emit_signal("_stage_switch",content[2])
+				return
+			else: 
+				choice_count += 1
+				self.append_text("\n" + "[url=" + content[2] + "|" + t_text + "]" + t_text + "[/url]")
+				if playing_array.size() != 0:
+					if playing_array[-1][0] == "call":
+						push_event_content()
+						return
+					else:
+						wait_for_choice = true
+						return
 		if content[0] == "bonus":
 			var bonus = content[1]
 			for i in bonus:
@@ -89,9 +95,9 @@ func push_event_content():
 						push_event_content()
 						return
 		if GlobalVar.module_temp_data["colortable"].keys().has(content[0]):
-			self.append_text("\n" + "[color=" + GlobalVar.module_temp_data["colortable"][content[0]] + "]" + text + "[/color]")
+			self.append_text("\n" + "[color=" + GlobalVar.module_temp_data["colortable"][content[0]] + "]" + t_text + "[/color]")
 		else:
-			self.append_text("\n" + text)
+			self.append_text("\n" + t_text)
 
 func _on_gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
