@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://bho1bde1c1fai"]
+
+[ext_resource type="Texture2D" uid="uid://b1ftyxdmtfdpu" path="res://icon.svg" id="1_c6ha1"]
+[ext_resource type="Script" uid="uid://bauvlsnxdrf8r" path="res://scripts/vanilla/mainmenu_icon.gd" id="1_hopv2"]
+
+[node name="IconPool" type="VBoxContainer" unique_id=2071761014]
+size_flags_horizontal = 6
+size_flags_vertical = 4
+script = ExtResource("1_hopv2")
+
+[node name="IconTexture" type="TextureRect" parent="." unique_id=294982687]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+texture = ExtResource("1_c6ha1")
+stretch_mode = 2
+
+[node name="IconName" type="Label" parent="." unique_id=1789070886]
+layout_mode = 2
+text = "EraHB"
+horizontal_alignment = 1
+
+[connection signal="gui_input" from="IconTexture" to="." method="_on_icon_texture_gui_input"]
+[connection signal="mouse_entered" from="IconTexture" to="." method="_on_icon_texture_mouse_entered"]
+[connection signal="mouse_exited" from="IconTexture" to="." method="_on_icon_texture_mouse_exited"]
