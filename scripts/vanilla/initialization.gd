@@ -30,7 +30,6 @@ func update_icons():
 		var icon = main_menu_icon.instantiate()
 		var image = Image.new()
 		var load_result = image.load_from_file("user://modules/" + i + "/" + check_result[i]["module_relate_path"]["logo"])
-		print("user://modules/" + i + "/" + check_result[i]["module_relate_path"]["logo"])
 		var texture = ImageTexture.create_from_image(load_result)
 		icon.get_node("IconTexture").texture = texture
 		icon.get_node("IconName").text = check_result[i]["module_name"]

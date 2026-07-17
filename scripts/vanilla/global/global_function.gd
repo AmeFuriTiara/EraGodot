@@ -7,12 +7,12 @@ func check_module():
 	# 检查模组文件夹是否存在
 	var folder_name = "modules"
 	var dir = DirAccess.open("user://")
-	if dir:
-		if dir.dir_exists(folder_name):
-			print_debug("检测到模组文件夹 '", folder_name, "' 存在")
+	if dir.dir_exists(folder_name):
+		print_debug("检测到模组文件夹 '", folder_name, "' 存在")
 	else:
-		print_debug("无法打开 user:// 目录")
-		return
+		dir.make_dir(folder_name)
+		print_debug("没有检测到模组文件夹，已重新创建")
+		return {}
 	# 检查模组是否存在
 	var results:Dictionary = {}
 	var folder_names = DirAccess.get_directories_at("user://modules")
@@ -153,5 +153,21 @@ func _match_event(id:String):
 			playing_array.reverse()
 			GlobalSignal.emit_signal("_return_event_content", playing_array)
 		
-		
-	
+func _get_sprite_path(any:Array):
+	var pre_path = "user://modules/" + GlobalVar.now_module_name
+	match any[0]:
+		"character":
+			var back_path = GlobalVar.module_cfg["module_relate_path"]["character_sprites"]
+			var fix_path = pre_path + "/" + back_path + "/" + any[1] + "/" + any[2]
+			if DirAccess.dir_exists_absolute(fix_path):
+				var file_path = fix_path + "/" + any[1] + "_" + any[2] + ".png"
+				if FileAccess.file_exists(file_path):
+					return file_path
+		"event":
+			var back_path = GlobalVar.module_cfg["module_relate_path"]["event_sprites"]
+			var fix_path = pre_path + "/" + back_path
+			return fix_path
+		"banner":
+			var back_path = GlobalVar.module_cfg["module_relate_path"]["banner_sprites"]
+			var fix_path = pre_path + "/" + back_path
+			return fix_path

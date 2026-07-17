@@ -3,9 +3,8 @@
 [ext_resource type="Script" uid="uid://7gp5op5ycihu" path="res://scripts/vanilla/initialization.gd" id="1_6ip6u"]
 [ext_resource type="Script" uid="uid://c1oriramjm4lq" path="res://scripts/vanilla/mid_container.gd" id="2_jfkm7"]
 [ext_resource type="Texture2D" uid="uid://s2hpycqojrj" path="res://resources/sprites/sprite_banner_01.jpg" id="3_6qrhe"]
-[ext_resource type="Texture2D" uid="uid://slu2rc2tgcfl" path="res://resources/sprites/asari.png" id="4_v00lw"]
+[ext_resource type="PackedScene" uid="uid://bc6n4rlsgc1y4" path="res://stage/character_unit.tscn" id="4_o1hb2"]
 [ext_resource type="Script" uid="uid://bsnqtnpj5uyv5" path="res://scripts/vanilla/rich_text_pool.gd" id="5_v00lw"]
-[ext_resource type="Texture2D" uid="uid://tbtlsjgkrf5x" path="res://resources/sprites/saki.png" id="6_cr0ee"]
 
 [sub_resource type="Gradient" id="Gradient_xpom4"]
 offsets = PackedFloat32Array(0, 0.1514423, 0.5745192, 1)
@@ -217,91 +216,8 @@ size_flags_horizontal = 6
 size_flags_vertical = 0
 alignment = 1
 
-[node name="CharacterUnit" type="VBoxContainer" parent="MainContainer/TripCut/Mid/MidContainer/CharacterContainer/ScrollContainer/CharacterPool" unique_id=1089339957]
-custom_maximum_size = Vector2(128, -1)
-clip_contents = true
+[node name="CharacterUnit" parent="MainContainer/TripCut/Mid/MidContainer/CharacterContainer/ScrollContainer/CharacterPool" unique_id=978689896 instance=ExtResource("4_o1hb2")]
 layout_mode = 2
-
-[node name="ChracterTemp" type="TextureRect" parent="MainContainer/TripCut/Mid/MidContainer/CharacterContainer/ScrollContainer/CharacterPool/CharacterUnit" unique_id=1024091258]
-clip_contents = true
-layout_mode = 2
-texture = ExtResource("4_v00lw")
-
-[node name="BuffPool" type="VBoxContainer" parent="MainContainer/TripCut/Mid/MidContainer/CharacterContainer/ScrollContainer/CharacterPool/CharacterUnit/ChracterTemp" unique_id=519652208]
-layout_mode = 1
-anchors_preset = 9
-anchor_bottom = 1.0
-offset_right = 1.0
-grow_vertical = 2
-theme_override_constants/separation = -83
-alignment = 2
-
-[node name="BuffPanel" type="ColorRect" parent="MainContainer/TripCut/Mid/MidContainer/CharacterContainer/ScrollContainer/CharacterPool/CharacterUnit/ChracterTemp/BuffPool" unique_id=957373409]
-self_modulate = Color(0.21230483, 0.21230483, 0.21230483, 0.54509807)
-custom_minimum_size = Vector2(50, 20)
-layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 10
-
-[node name="BuffLabel" type="Label" parent="MainContainer/TripCut/Mid/MidContainer/CharacterContainer/ScrollContainer/CharacterPool/CharacterUnit/ChracterTemp/BuffPool/BuffPanel" unique_id=2042340917]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_vertical = 10
-text = "闲逛中"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Name" type="Label" parent="MainContainer/TripCut/Mid/MidContainer/CharacterContainer/ScrollContainer/CharacterPool/CharacterUnit" unique_id=2110715348]
-layout_mode = 2
-text = "根绪亚纱里"
-horizontal_alignment = 1
-
-[node name="CharacterUnit2" type="VBoxContainer" parent="MainContainer/TripCut/Mid/MidContainer/CharacterContainer/ScrollContainer/CharacterPool" unique_id=2077291895]
-custom_maximum_size = Vector2(128, -1)
-clip_contents = true
-layout_mode = 2
-
-[node name="ChracterTemp" type="TextureRect" parent="MainContainer/TripCut/Mid/MidContainer/CharacterContainer/ScrollContainer/CharacterPool/CharacterUnit2" unique_id=1905919492]
-clip_contents = true
-layout_mode = 2
-texture = ExtResource("6_cr0ee")
-
-[node name="BuffPool" type="VBoxContainer" parent="MainContainer/TripCut/Mid/MidContainer/CharacterContainer/ScrollContainer/CharacterPool/CharacterUnit2/ChracterTemp" unique_id=1917807113]
-layout_mode = 1
-anchors_preset = 9
-anchor_bottom = 1.0
-offset_right = 1.0
-grow_vertical = 2
-theme_override_constants/separation = -83
-alignment = 2
-
-[node name="BuffPanel" type="ColorRect" parent="MainContainer/TripCut/Mid/MidContainer/CharacterContainer/ScrollContainer/CharacterPool/CharacterUnit2/ChracterTemp/BuffPool" unique_id=459816]
-self_modulate = Color(0.21230483, 0.21230483, 0.21230483, 0.54509807)
-custom_minimum_size = Vector2(50, 20)
-layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 10
-
-[node name="BuffLabel" type="Label" parent="MainContainer/TripCut/Mid/MidContainer/CharacterContainer/ScrollContainer/CharacterPool/CharacterUnit2/ChracterTemp/BuffPool/BuffPanel" unique_id=1048582057]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_vertical = 10
-text = "闲逛中"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Name" type="Label" parent="MainContainer/TripCut/Mid/MidContainer/CharacterContainer/ScrollContainer/CharacterPool/CharacterUnit2" unique_id=1287938050]
-layout_mode = 2
-text = "花海咲季"
-horizontal_alignment = 1
 
 [node name="CharacterDetail" type="HBoxContainer" parent="MainContainer/TripCut/Mid/MidContainer/CharacterContainer" unique_id=1838600584]
 clip_contents = true
@@ -588,7 +504,7 @@ text = "回到主菜单"
 [node name="Copyrights" type="Label" parent="MainContainer/TripCut/Mid/MidContainer" unique_id=1099057197]
 layout_mode = 2
 size_flags_vertical = 8
-text = "parrot_sbr@2026"
+text = "AmeFuri Tiara@2026"
 horizontal_alignment = 1
 
 [node name="Right" type="TextureRect" parent="MainContainer/TripCut" unique_id=554789731]

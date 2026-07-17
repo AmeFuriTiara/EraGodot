@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://bc6n4rlsgc1y4"]
+
+[ext_resource type="Texture2D" uid="uid://brsendvlibuc4" path="res://resources/sprites/default_character_icon.png" id="1_5xn8n"]
+[ext_resource type="Script" uid="uid://bow08hhemapf4" path="res://stage/character_unit.gd" id="1_bhblo"]
+[ext_resource type="PackedScene" uid="uid://c3nw5tk3sdnn7" path="res://stage/buff_panel.tscn" id="3_kvxht"]
+
+[node name="CharacterUnit" type="VBoxContainer" unique_id=978689896]
+custom_maximum_size = Vector2(128, -1)
+clip_contents = true
+script = ExtResource("1_bhblo")
+
+[node name="ChracterIcon" type="TextureRect" parent="." unique_id=908773971]
+clip_contents = true
+layout_mode = 2
+texture = ExtResource("1_5xn8n")
+
+[node name="BuffPool" type="VBoxContainer" parent="ChracterIcon" unique_id=1552387750]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 1.0
+grow_vertical = 2
+theme_override_constants/separation = -83
+alignment = 2
+
+[node name="BuffPanel" parent="ChracterIcon/BuffPool" unique_id=652596727 instance=ExtResource("3_kvxht")]
+layout_mode = 2
+
+[node name="Name" type="Label" parent="." unique_id=132264162]
+layout_mode = 2
+text = "???"
+horizontal_alignment = 1

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d2ql0qwij4i3y"
-path="res://.godot/imported/kotone.png-792e88e7f151723fe9fdc1841f4292d2.ctex"
+uid="uid://brsendvlibuc4"
+path="res://.godot/imported/default_character_icon.png-fad316a48b7d579697fa7896241f2912.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resources/sprites/kotone.png"
-dest_files=["res://.godot/imported/kotone.png-792e88e7f151723fe9fdc1841f4292d2.ctex"]
+source_file="res://resources/sprites/default_character_icon.png"
+dest_files=["res://.godot/imported/default_character_icon.png-fad316a48b7d579697fa7896241f2912.ctex"]
 
 [params]
 
