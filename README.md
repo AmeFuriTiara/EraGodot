@@ -1,15 +1,23 @@
-# EraGodot
+# EraGodot (on going)
 
 An Era-like engine built on Godot
 
-[EN](README_EN.md)
+[EN](README_EN.md)(nothing inside right now)
 
 介绍
 ----
 基于Godot的类era游戏引擎，支持外部自动化导入及高度自定义系统\
-个人开发项目，脚本使用gdscript实现，实质是马拉松开发\
-因为架构原因，目前不支持导入旧era系统游戏，如eraTW等\
-理论上支持一键导出适配安卓，但出于优化问题暂时不予考虑
+个人开发项目，脚本使用gdscript实现\
+因为架构原因，不支持导入旧era系统游戏，如eraTW等\
+理论上支持一键导出适配安卓，但出于优化问题暂时没法做
+
+为什么要做这个：之前想着给EraAM做模组，结果正文没写几行先给自己绕头晕了。\
+沉思许久，我不用era引擎啦jojo！
+
+当前进度
+----
+体感进度：23%\
+属于是想到什么加什么，并不是单纯对era系统进行复刻
 
 模组编辑器
 ----
@@ -17,7 +25,7 @@ An Era-like engine built on Godot
 
 项目配套模组
 ----
-本项目拥有配套模组EraHB(EraHatsuBoshi)\
+本项目拥有配套模组[EraHB](https://github.com/AmeFuriTiara/EraHB)(EraHatsuBoshi)\
 EraHB将会作为附属包提供分发与下载
 
 故事背景是某个学校的新人普罗丢色在学园里到处培育偶像，带领她们冲击各大演唱会选拔赛的传奇经历\
@@ -41,4 +49,4 @@ EraHB将会作为附属包提供分发与下载
 
 链接
 ----
-Discord：
+Discord：[点击加入](https://discord.gg/bHrr6VnAn)(完全不会discord装修，凑合着看吧)
