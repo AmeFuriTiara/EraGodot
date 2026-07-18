@@ -2,9 +2,13 @@
 
 [ext_resource type="Script" uid="uid://7gp5op5ycihu" path="res://scripts/vanilla/initialization.gd" id="1_6ip6u"]
 [ext_resource type="Script" uid="uid://c1oriramjm4lq" path="res://scripts/vanilla/mid_container.gd" id="2_jfkm7"]
-[ext_resource type="Texture2D" uid="uid://s2hpycqojrj" path="res://resources/sprites/sprite_banner_01.jpg" id="3_6qrhe"]
+[ext_resource type="Texture2D" uid="uid://s2hpycqojrj" path="res://resources/sprites/default_banner.jpg" id="3_6qrhe"]
 [ext_resource type="PackedScene" uid="uid://bc6n4rlsgc1y4" path="res://stage/character_unit.tscn" id="4_o1hb2"]
 [ext_resource type="Script" uid="uid://bsnqtnpj5uyv5" path="res://scripts/vanilla/rich_text_pool.gd" id="5_v00lw"]
+[ext_resource type="Script" uid="uid://drgo0po3dpxw7" path="res://stage/social_command.gd" id="6_blrdj"]
+[ext_resource type="PackedScene" uid="uid://bvxkmlqj0tscu" path="res://stage/command_button.tscn" id="7_6yg1v"]
+[ext_resource type="Script" uid="uid://bgj1s17pxrlui" path="res://stage/special_command.gd" id="8_c7dvp"]
+[ext_resource type="Script" uid="uid://42o018vgm6hx" path="res://stage/sekuhara_command.gd" id="9_6ipcq"]
 
 [sub_resource type="Gradient" id="Gradient_xpom4"]
 offsets = PackedFloat32Array(0, 0.1514423, 0.5745192, 1)
@@ -157,7 +161,7 @@ propagate_maximum_size = true
 clip_contents = true
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_stretch_ratio = 0.0
+size_flags_stretch_ratio = 3.0
 mouse_filter = 2
 color = Color(0.06136909, 0.0613691, 0.06136909, 1)
 
@@ -179,7 +183,7 @@ layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.0
 bbcode_enabled = true
-text = "春季  1日  星期一  10:00(午前)  🌤晴  17°"
+text = "???"
 fit_content = true
 scroll_active = false
 horizontal_alignment = 1
@@ -367,7 +371,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 bbcode_enabled = true
-text = "[url=first_stage|点我试试！]点我试试！[/url]"
+text = "[url=asari_first_meeting|点我试试！]点我试试！[/url]"
 script = ExtResource("5_v00lw")
 
 [node name="CommandPanel" type="VBoxContainer" parent="MainContainer/TripCut/Mid/MidContainer/InteractArea" unique_id=1443622029]
@@ -379,6 +383,7 @@ size_flags_stretch_ratio = 0.6
 [node name="Social" type="VBoxContainer" parent="MainContainer/TripCut/Mid/MidContainer/InteractArea/CommandPanel" unique_id=1957986818]
 layout_mode = 2
 size_flags_vertical = 3
+script = ExtResource("6_blrdj")
 
 [node name="Label" type="Label" parent="MainContainer/TripCut/Mid/MidContainer/InteractArea/CommandPanel/Social" unique_id=2046215673]
 layout_mode = 2
@@ -395,10 +400,8 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Button" type="Button" parent="MainContainer/TripCut/Mid/MidContainer/InteractArea/CommandPanel/Social/ScrollContainer/ButtonPool" unique_id=655966038]
+[node name="CButton" parent="MainContainer/TripCut/Mid/MidContainer/InteractArea/CommandPanel/Social/ScrollContainer/ButtonPool" unique_id=601053086 instance=ExtResource("7_6yg1v")]
 layout_mode = 2
-text = "[1] 摸头"
-flat = true
 
 [node name="Button2" type="Button" parent="MainContainer/TripCut/Mid/MidContainer/InteractArea/CommandPanel/Social/ScrollContainer/ButtonPool" unique_id=67755764]
 layout_mode = 2
@@ -414,6 +417,7 @@ flat = true
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.5
+script = ExtResource("8_c7dvp")
 
 [node name="Label" type="Label" parent="MainContainer/TripCut/Mid/MidContainer/InteractArea/CommandPanel/Special" unique_id=564046212]
 layout_mode = 2
@@ -438,6 +442,7 @@ flat = true
 [node name="Sekuhara" type="VBoxContainer" parent="MainContainer/TripCut/Mid/MidContainer/InteractArea/CommandPanel" unique_id=1174490085]
 layout_mode = 2
 size_flags_vertical = 3
+script = ExtResource("9_6ipcq")
 
 [node name="Label" type="Label" parent="MainContainer/TripCut/Mid/MidContainer/InteractArea/CommandPanel/Sekuhara" unique_id=1413243833]
 layout_mode = 2
@@ -515,6 +520,7 @@ size_flags_horizontal = 3
 libraries/ = SubResource("AnimationLibrary_wjiry")
 
 [node name="MainMenu" type="HBoxContainer" parent="." unique_id=635308689]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

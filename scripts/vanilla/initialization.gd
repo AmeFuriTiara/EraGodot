@@ -24,6 +24,8 @@ func _ready() -> void:
 	GlobalSignal.connect("_stage_switch",Callable(self,"stage_change"))
 	GlobalSignal.connect("_stage_switch_done",Callable(self,"stage_change_clear"))
 	GlobalSignal.connect("_init_load_done",Callable(self,"mid_show"))
+	$MainContainer/TripCut/Mid.size_flags_stretch_ratio = 0.0
+	$MainMenu.visible = true
 	check_result = GlobalFunc.check_module()
 	if check_result != {}:
 		update_icons()
@@ -36,8 +38,7 @@ func update_icons():
 	var list = check_result.keys()
 	for i in list:
 		var icon = main_menu_icon.instantiate()
-		var image = Image.new()
-		var load_result = image.load_from_file("user://modules/" + i + "/" + check_result[i]["module_relate_path"]["logo"])
+		var load_result = Image.load_from_file("user://modules/" + i + "/" + check_result[i]["module_relate_path"]["logo"])
 		var texture = ImageTexture.create_from_image(load_result)
 		icon.get_node("IconTexture").texture = texture
 		icon.get_node("IconName").text = check_result[i]["module_name"]
@@ -53,7 +54,7 @@ func stage_change(any:Array):
 	await mid_ani.animation_finished
 	var s_text = GlobalVar.module_temp_data["stage"][any[0]][GlobalSys.system_lang_zone]
 	var d_text = GlobalVar.module_temp_data["stage"][any[0]][any[1]][GlobalSys.system_lang_zone]
-	mid_stage_status_label.text = s_text + " " + d_text + GlobalVar.stage_temp["clean"] + " " + GlobalVar.stage_temp["description"]
+	mid_stage_status_label.text = s_text + " " + d_text + str(GlobalVar.game_temp_data["clean"]) + " " + GlobalVar.game_temp_data["description"]
 	GlobalSignal.emit_signal("_stage_switch_done")
 
 func stage_change_clear():
@@ -62,10 +63,10 @@ func stage_change_clear():
 func mid_show():
 	mid_ani.play("总界面开")
 
-func _on_main_ani_player_animation_finished(anim_name: StringName) -> void:
+func _on_main_ani_player_animation_finished(_anim_name: StringName) -> void:
 	GlobalFunc._load_module(load_holder)
 
-func _on_mid_ani_player_animation_finished(anim_name: StringName) -> void:
+func _on_mid_ani_player_animation_finished(_anim_name: StringName) -> void:
 	match mid_on:
 		true:
 			mid_on = false

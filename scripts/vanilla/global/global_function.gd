@@ -67,6 +67,10 @@ func _load_module(m_name:String):
 			if dir.file_exists(stage_folder_path):
 				_get_and_set(stage_folder_path, "stage")
 			print_debug("场景导入完成")
+			var command_folder_path = GlobalVar.module_native_path + GlobalVar.module_relate_path["command"]
+			if dir.file_exists(command_folder_path):
+				_get_and_set(command_folder_path, "command")
+			print_debug("指令导入完成")
 			# 初始化角色索引
 			var character_folder_path = GlobalVar.module_native_path + GlobalVar.module_relate_path["character"]
 			if dir.dir_exists(character_folder_path):
@@ -74,8 +78,8 @@ func _load_module(m_name:String):
 				if file_list.size() > 0:
 					for i in file_list:
 						var ipath = character_folder_path + "/" + i
-						var str = str(i).trim_suffix(".json")
-						GlobalVar.character_json_path[str] = ipath
+						var t_str = str(i).trim_suffix(".json")
+						GlobalVar.character_json_path[t_str] = ipath
 						_get_and_set(ipath, "character")
 			print_debug("角色索引建立完成")
 			# 初始化调色盘
@@ -113,6 +117,8 @@ func _get_and_set(path:String,target_block:String):
 			GlobalVar.module_temp_data["personality"] = data
 		"stage":
 			GlobalVar.module_temp_data["stage"] = data
+		"command":
+			GlobalVar.module_temp_data["command"] = data
 		"character":
 			#data["detail"] = {}
 			GlobalVar.module_temp_data["character"][data["info"]["sid"]] = data
@@ -129,6 +135,7 @@ func _get_and_set(path:String,target_block:String):
 
 # 比对索引返回数据
 func _match_event(id:String):
+	# 用去除法算事件的角色触发条件
 	var arr = GlobalVar.module_temp_data["event"]["events"].keys()
 	if arr.has(id):
 		var list = GlobalVar.event_json_path.keys()
@@ -140,9 +147,8 @@ func _match_event(id:String):
 			var t_list = data["events"].keys()
 			if t_list.has(id):
 				GlobalVar.playing_data = data["events"][id]
-	# 用去除法算事件的角色触发条件
 	var character_count = GlobalVar.playing_data["character"]
-	for i in GlobalVar.character_on_stage:
+	for i in GlobalVar.game_temp_data["character_on_stage"]:
 		if character_count.has(i):
 			character_count.erase(i)
 	if character_count.size() == 0:
@@ -153,24 +159,66 @@ func _match_event(id:String):
 				if GlobalVar.module_temp_data["character"].keys().has(condition[0]):
 					if condition.size() == 5:
 						match condition[3]:
+							"L":
+								if GlobalVar.module_temp_data["character"][condition[0]]["detail"][condition[1]][condition[2]] < condition[4]:
+									var playing_array = null
+									if GlobalVar.game_temp_data["player_ping"] == condition[0]:
+										playing_array = GlobalVar.playing_data["text"]["ping"]
+									else:
+										playing_array = GlobalVar.playing_data["text"]["normal"]
+									playing_array.reverse()
+									GlobalSignal.emit_signal("_return_event_content", playing_array)
+								else:
+									return "not match"
 							"LE":
-								pass
+								if GlobalVar.module_temp_data["character"][condition[0]]["detail"][condition[1]][condition[2]] <= condition[4]:
+									var playing_array = null
+									if GlobalVar.game_temp_data["player_ping"] == condition[0]:
+										playing_array = GlobalVar.playing_data["text"]["ping"]
+									else:
+										playing_array = GlobalVar.playing_data["text"]["normal"]
+									playing_array.reverse()
+									GlobalSignal.emit_signal("_return_event_content", playing_array)
+								else:
+									return "not match"
 							"E":
-								pass
+								if GlobalVar.module_temp_data["character"][condition[0]]["detail"][condition[1]][condition[2]] == condition[4]:
+									var playing_array = null
+									if GlobalVar.game_temp_data["player_ping"] == condition[0]:
+										playing_array = GlobalVar.playing_data["text"]["ping"]
+									else:
+										playing_array = GlobalVar.playing_data["text"]["normal"]
+									playing_array.reverse()
+									GlobalSignal.emit_signal("_return_event_content", playing_array)
+								else:
+									return "not match"
 							"GE":
 								if GlobalVar.module_temp_data["character"][condition[0]]["detail"][condition[1]][condition[2]] >= condition[4]:
-									pass
+									var playing_array = null
+									if GlobalVar.game_temp_data["player_ping"] == condition[0]:
+										playing_array = GlobalVar.playing_data["text"]["ping"]
+									else:
+										playing_array = GlobalVar.playing_data["text"]["normal"]
+									playing_array.reverse()
+									GlobalSignal.emit_signal("_return_event_content", playing_array)
 								else:
-									return
-			if GlobalVar.character_ping == condition[0]:
-				var playing_array = GlobalVar.playing_data["text"]["ping"]
-				playing_array.reverse()
-				GlobalSignal.emit_signal("_return_event_content", playing_array)
+									return "not match"
+							"G":
+								if GlobalVar.module_temp_data["character"][condition[0]]["detail"][condition[1]][condition[2]] > condition[4]:
+									var playing_array = null
+									if GlobalVar.game_temp_data["player_ping"] == condition[0]:
+										playing_array = GlobalVar.playing_data["text"]["ping"]
+									else:
+										playing_array = GlobalVar.playing_data["text"]["normal"]
+									playing_array.reverse()
+									GlobalSignal.emit_signal("_return_event_content", playing_array)
+								else:
+									return "not match"
 		else:
 			var playing_array = GlobalVar.playing_data["text"]["normal"]
 			playing_array.reverse()
 			GlobalSignal.emit_signal("_return_event_content", playing_array)
-		
+
 func _get_sprite_path(any:Array):
 	var pre_path = "user://modules/" + GlobalVar.now_module_name
 	match any[0]:

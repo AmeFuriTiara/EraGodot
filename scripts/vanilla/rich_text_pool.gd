@@ -32,22 +32,25 @@ func require_event_content(id:String):
 	GlobalSignal.emit_signal("_require_event_content",id)
 
 # 接受返回的事件文本
-func get_event_content(result:Array):
-	playing_array = result
-	# 完成本地化处理
-	# 事件数组[-1]必须是文本
-	var regex = RegEx.new()
-	regex.compile("\\{([^}]+)\\}")
-	for i in playing_array:
-		if i[-1] is not String:
-			pass
-		else:
-			var results = regex.search_all(i[-1])
-			for match in results:
-				var mark = match.get_string(1)
-				if GlobalVar.module_temp_data["character"].has(mark):
-					i[-1] = i[-1].replace(match.get_string(0), GlobalVar.module_temp_data["character"][str(mark)]["info"]["name"][GlobalSys.system_lang_zone])
-	wait_for_choice = false
+func get_event_content(result):
+	if result is not Array:
+		return
+	else:
+		playing_array = result
+		# 完成本地化处理
+		# 事件数组[-1]必须是文本
+		var regex = RegEx.new()
+		regex.compile("\\{([^}]+)\\}")
+		for i in playing_array:
+			if i[-1] is not String:
+				pass
+			else:
+				var results = regex.search_all(i[-1])
+				for match in results:
+					var mark = match.get_string(1)
+					if GlobalVar.module_temp_data["character"].has(mark):
+						i[-1] = i[-1].replace(match.get_string(0), GlobalVar.module_temp_data["character"][str(mark)]["info"]["name"][GlobalSys.system_lang_zone])
+		wait_for_choice = false
 
 # 推送文本 主逻辑
 func push_event_content():

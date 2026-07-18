@@ -1,0 +1,5 @@
+[gd_scene format=3 uid="uid://bvxkmlqj0tscu"]
+
+[node name="CButton" type="Button" unique_id=601053086]
+text = "[1] 摸头"
+flat = true

@@ -17,10 +17,18 @@ var event_json_path:Dictionary = {}
 
 var playing_data:Dictionary = {}
 
-var character_on_stage:Array = ["asari","player"]
-var character_ping:String = "asari"
-
-var stage_temp:Dictionary = {
-	"clean":"(整洁)",
-	"description":"'空气中弥漫着一股花香'"
+var game_temp_data:Dictionary = {
+	"player_ping":"asari",
+	"season":1,
+	"day_count":1,
+	"youbi":1,
+	"time_h":10,
+	"time_m":0,
+	"weather":"sunny",
+	"temperature":17,
+	"now_location":["school","auditorium_inside"],
+	"location_dirty":[],
+	"description":"'空气中弥漫着一股花香'",
+	"character_on_stage":["player","asari"],
+	"":""
 }

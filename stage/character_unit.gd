@@ -19,6 +19,5 @@ func init_self():
 	# 加载对应角色头像
 	var t_path = GlobalFunc._get_sprite_path(["character",temp,"icon"])
 	if t_path != null:
-		var image = Image.new()
-		var load_result = image.load_from_file(t_path)
+		var load_result = Image.load_from_file(t_path)
 		s_texture_node.texture = ImageTexture.create_from_image(load_result)

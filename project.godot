@@ -21,11 +21,13 @@ GlobalSignal="*uid://jslkk7r3jkmc"
 GlobalVar="*uid://drflugalp88r7"
 GlobalSys="*uid://rlajrpu03iua"
 GlobalFunc="*uid://bh66x557h11oj"
+GlobalFC="*uid://b28aofbe7rb0j"
 
 [debug]
 
 file_logging/enable_file_logging=true
 file_logging/max_log_files=20
+gdscript/warnings/unused_signal=0
 
 [display]
 
