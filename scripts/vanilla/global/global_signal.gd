@@ -2,8 +2,7 @@ extends Node
 
 signal _no_module_found
 
-signal _require_event_content
-signal _return_event_content
+
 
 # 场景相关信号
 # 动画
@@ -17,3 +16,7 @@ signal _init_load_done
 signal _env_status_change
 signal _character_status_change
 signal _stage_status_change
+
+signal _require_event_content
+signal _return_event_content
+signal _event_not_match

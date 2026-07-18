@@ -34,6 +34,8 @@ func require_event_content(id:String):
 # 接受返回的事件文本
 func get_event_content(result):
 	if result is not Array:
+		GlobalSignal.emit_signal("_event_not_match")
+		print("!")
 		return
 	else:
 		playing_array = result
