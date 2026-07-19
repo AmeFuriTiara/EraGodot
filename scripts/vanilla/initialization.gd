@@ -20,7 +20,7 @@ const main_menu_icon = preload("res://stage/mainmenu_icon.tscn")
 
 func _ready() -> void:
 	GlobalSignal.connect("_no_module_found",Callable(self,"show_warning"))
-	GlobalSignal.connect("_ani_menu_out",Callable(self,"menu_out"))
+	GlobalSignal.connect("_new_game",Callable(self,"menu_out"))
 	GlobalSignal.connect("_stage_switch",Callable(self,"stage_change"))
 	GlobalSignal.connect("_stage_switch_done",Callable(self,"stage_change_clear"))
 	GlobalSignal.connect("_init_load_done",Callable(self,"mid_show"))
@@ -43,18 +43,22 @@ func update_icons():
 		icon.get_node("IconTexture").texture = texture
 		icon.get_node("IconName").text = check_result[i]["module_name"]
 		icon.s_name = i
+		if DirAccess.dir_exists_absolute("user://modules/" + i + "/save"):
+			icon.has_save_folder = true
 		main_menu_mid.add_child(icon)
 
 func menu_out(any:String):
 	load_holder = any
 	main_ani.play("主菜单淡出")
+	await main_ani.animation_finished
+	GlobalFunc._load_module(load_holder)
 
 func stage_change(any:Array):
 	mid_ani.play("总界面关")
 	await mid_ani.animation_finished
 	var s_text = GlobalVar.module_temp_data["stage"][any[0]][GlobalSys.system_lang_zone]
 	var d_text = GlobalVar.module_temp_data["stage"][any[0]][any[1]][GlobalSys.system_lang_zone]
-	mid_stage_status_label.text = s_text + " " + d_text + str(GlobalVar.game_temp_data["clean"]) + " " + GlobalVar.game_temp_data["description"]
+	mid_stage_status_label.text = s_text + " " + d_text + str(GlobalVar.in_game_data["clean"]) + " " + GlobalVar.in_game_data["description"]
 	GlobalSignal.emit_signal("_stage_switch_done")
 
 func stage_change_clear():
@@ -62,9 +66,6 @@ func stage_change_clear():
 
 func mid_show():
 	mid_ani.play("总界面开")
-
-func _on_main_ani_player_animation_finished(_anim_name: StringName) -> void:
-	GlobalFunc._load_module(load_holder)
 
 func _on_mid_ani_player_animation_finished(_anim_name: StringName) -> void:
 	match mid_on:

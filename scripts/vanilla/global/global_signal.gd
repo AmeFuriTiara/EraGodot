@@ -2,7 +2,13 @@ extends Node
 
 signal _no_module_found
 
+# 控制流信号
+# 主菜单
+signal _new_game
+signal _load_game
 
+# 主界面
+signal _update_stage
 
 # 场景相关信号
 # 动画

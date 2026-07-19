@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://c1oriramjm4lq" path="res://scripts/vanilla/mid_container.gd" id="2_jfkm7"]
 [ext_resource type="Texture2D" uid="uid://s2hpycqojrj" path="res://resources/sprites/default_banner.jpg" id="3_6qrhe"]
 [ext_resource type="PackedScene" uid="uid://bc6n4rlsgc1y4" path="res://stage/character_unit.tscn" id="4_o1hb2"]
+[ext_resource type="Script" uid="uid://do50c2wm16dlm" path="res://stage/idol_status_name.gd" id="5_6yg1v"]
 [ext_resource type="Script" uid="uid://bsnqtnpj5uyv5" path="res://scripts/vanilla/rich_text_pool.gd" id="5_v00lw"]
 [ext_resource type="Script" uid="uid://drgo0po3dpxw7" path="res://stage/social_command.gd" id="6_blrdj"]
 [ext_resource type="PackedScene" uid="uid://bvxkmlqj0tscu" path="res://stage/command_button.tscn" id="7_6yg1v"]
@@ -206,161 +207,119 @@ horizontal_alignment = 1
 [node name="CharacterContainer" type="HBoxContainer" parent="MainContainer/TripCut/Mid/MidContainer" unique_id=2030420834]
 layout_mode = 2
 
-[node name="ScrollContainer" type="ScrollContainer" parent="MainContainer/TripCut/Mid/MidContainer/CharacterContainer" unique_id=1695489554]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_stretch_ratio = 0.8
-horizontal_scroll_mode = 2
-vertical_scroll_mode = 0
-scroll_horizontal_by_default = true
-
-[node name="CharacterPool" type="HBoxContainer" parent="MainContainer/TripCut/Mid/MidContainer/CharacterContainer/ScrollContainer" unique_id=1411430183]
-layout_mode = 2
-size_flags_horizontal = 6
-size_flags_vertical = 0
-alignment = 1
-
-[node name="CharacterUnit" parent="MainContainer/TripCut/Mid/MidContainer/CharacterContainer/ScrollContainer/CharacterPool" unique_id=978689896 instance=ExtResource("4_o1hb2")]
-layout_mode = 2
-
 [node name="CharacterDetail" type="HBoxContainer" parent="MainContainer/TripCut/Mid/MidContainer/CharacterContainer" unique_id=1838600584]
 clip_contents = true
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Idol" type="VBoxContainer" parent="MainContainer/TripCut/Mid/MidContainer/CharacterContainer/CharacterDetail" unique_id=341457340]
+[node name="ScrollContainer" type="ScrollContainer" parent="MainContainer/TripCut/Mid/MidContainer/CharacterContainer/CharacterDetail" unique_id=1695489554]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.6
+horizontal_scroll_mode = 2
+vertical_scroll_mode = 0
+scroll_horizontal_by_default = true
+
+[node name="CharacterPool" type="HBoxContainer" parent="MainContainer/TripCut/Mid/MidContainer/CharacterContainer/CharacterDetail/ScrollContainer" unique_id=1411430183]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 0
+alignment = 1
+
+[node name="CharacterUnit" parent="MainContainer/TripCut/Mid/MidContainer/CharacterContainer/CharacterDetail/ScrollContainer/CharacterPool" unique_id=978689896 instance=ExtResource("4_o1hb2")]
+layout_mode = 2
+
+[node name="IdolScrollContainer" type="ScrollContainer" parent="MainContainer/TripCut/Mid/MidContainer/CharacterContainer/CharacterDetail" unique_id=234894817]
+layout_mode = 2
+size_flags_horizontal = 3
+vertical_scroll_mode = 2
+
+[node name="Idol" type="VBoxContainer" parent="MainContainer/TripCut/Mid/MidContainer/CharacterContainer/CharacterDetail/IdolScrollContainer" unique_id=341457340]
 clip_contents = true
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Name" type="Label" parent="MainContainer/TripCut/Mid/MidContainer/CharacterContainer/CharacterDetail/Idol" unique_id=794296258]
+[node name="IdolStatus" type="HBoxContainer" parent="MainContainer/TripCut/Mid/MidContainer/CharacterContainer/CharacterDetail/IdolScrollContainer/Idol" unique_id=251538107]
+layout_mode = 2
+
+[node name="Name" type="Label" parent="MainContainer/TripCut/Mid/MidContainer/CharacterContainer/CharacterDetail/IdolScrollContainer/Idol/IdolStatus" unique_id=794296258]
 layout_mode = 2
 size_flags_vertical = 3
 text = "花海咲季"
 vertical_alignment = 1
+script = ExtResource("5_6yg1v")
 
-[node name="BarContainer" type="HBoxContainer" parent="MainContainer/TripCut/Mid/MidContainer/CharacterContainer/CharacterDetail/Idol" unique_id=576318002]
+[node name="Detail" type="Button" parent="MainContainer/TripCut/Mid/MidContainer/CharacterContainer/CharacterDetail/IdolScrollContainer/Idol/IdolStatus" unique_id=522352283]
+layout_mode = 2
+size_flags_vertical = 8
+text = "☆学生名册"
+flat = true
+alignment = 2
+
+[node name="BarPanel" type="HBoxContainer" parent="MainContainer/TripCut/Mid/MidContainer/CharacterContainer/CharacterDetail/IdolScrollContainer/Idol" unique_id=564100323]
+layout_mode = 2
+
+[node name="MainStatus" type="VBoxContainer" parent="MainContainer/TripCut/Mid/MidContainer/CharacterContainer/CharacterDetail/IdolScrollContainer/Idol/BarPanel" unique_id=1965566434]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="BarContainer" type="HBoxContainer" parent="MainContainer/TripCut/Mid/MidContainer/CharacterContainer/CharacterDetail/IdolScrollContainer/Idol/BarPanel/MainStatus" unique_id=576318002]
 layout_mode = 2
 size_flags_vertical = 0
 
-[node name="Stamina" type="Label" parent="MainContainer/TripCut/Mid/MidContainer/CharacterContainer/CharacterDetail/Idol/BarContainer" unique_id=701266980]
+[node name="Stamina" type="Label" parent="MainContainer/TripCut/Mid/MidContainer/CharacterContainer/CharacterDetail/IdolScrollContainer/Idol/BarPanel/MainStatus/BarContainer" unique_id=701266980]
 layout_mode = 2
-size_flags_horizontal = 3
 text = "体力"
-clip_text = true
 
-[node name="PBar" type="ProgressBar" parent="MainContainer/TripCut/Mid/MidContainer/CharacterContainer/CharacterDetail/Idol/BarContainer" unique_id=701965803]
+[node name="PBar" type="ProgressBar" parent="MainContainer/TripCut/Mid/MidContainer/CharacterContainer/CharacterDetail/IdolScrollContainer/Idol/BarPanel/MainStatus/BarContainer" unique_id=701965803]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 3.0
 step = 1.0
 value = 100.0
 
-[node name="BarContainer2" type="HBoxContainer" parent="MainContainer/TripCut/Mid/MidContainer/CharacterContainer/CharacterDetail/Idol" unique_id=1505144019]
+[node name="BarContainer2" type="HBoxContainer" parent="MainContainer/TripCut/Mid/MidContainer/CharacterContainer/CharacterDetail/IdolScrollContainer/Idol/BarPanel/MainStatus" unique_id=1505144019]
 layout_mode = 2
 size_flags_vertical = 0
 
-[node name="Energy" type="Label" parent="MainContainer/TripCut/Mid/MidContainer/CharacterContainer/CharacterDetail/Idol/BarContainer2" unique_id=679166966]
+[node name="Energy" type="Label" parent="MainContainer/TripCut/Mid/MidContainer/CharacterContainer/CharacterDetail/IdolScrollContainer/Idol/BarPanel/MainStatus/BarContainer2" unique_id=679166966]
 layout_mode = 2
-size_flags_horizontal = 3
 text = "精力"
-clip_text = true
 
-[node name="PBar" type="ProgressBar" parent="MainContainer/TripCut/Mid/MidContainer/CharacterContainer/CharacterDetail/Idol/BarContainer2" unique_id=1886814224]
+[node name="PBar" type="ProgressBar" parent="MainContainer/TripCut/Mid/MidContainer/CharacterContainer/CharacterDetail/IdolScrollContainer/Idol/BarPanel/MainStatus/BarContainer2" unique_id=1886814224]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 3.0
 step = 1.0
 value = 100.0
 
-[node name="BarContainer3" type="HBoxContainer" parent="MainContainer/TripCut/Mid/MidContainer/CharacterContainer/CharacterDetail/Idol" unique_id=1762001503]
+[node name="BarContainer3" type="HBoxContainer" parent="MainContainer/TripCut/Mid/MidContainer/CharacterContainer/CharacterDetail/IdolScrollContainer/Idol/BarPanel/MainStatus" unique_id=1762001503]
 layout_mode = 2
 size_flags_vertical = 0
 
-[node name="San" type="Label" parent="MainContainer/TripCut/Mid/MidContainer/CharacterContainer/CharacterDetail/Idol/BarContainer3" unique_id=1625943267]
+[node name="San" type="Label" parent="MainContainer/TripCut/Mid/MidContainer/CharacterContainer/CharacterDetail/IdolScrollContainer/Idol/BarPanel/MainStatus/BarContainer3" unique_id=1625943267]
 layout_mode = 2
-size_flags_horizontal = 3
 text = "理智"
-clip_text = true
 
-[node name="PBar" type="ProgressBar" parent="MainContainer/TripCut/Mid/MidContainer/CharacterContainer/CharacterDetail/Idol/BarContainer3" unique_id=1156081602]
+[node name="PBar" type="ProgressBar" parent="MainContainer/TripCut/Mid/MidContainer/CharacterContainer/CharacterDetail/IdolScrollContainer/Idol/BarPanel/MainStatus/BarContainer3" unique_id=1156081602]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 3.0
 step = 1.0
 value = 100.0
 
-[node name="SelfTalk" type="Label" parent="MainContainer/TripCut/Mid/MidContainer/CharacterContainer/CharacterDetail/Idol" unique_id=1466851622]
+[node name="SideStatus" type="VBoxContainer" parent="MainContainer/TripCut/Mid/MidContainer/CharacterContainer/CharacterDetail/IdolScrollContainer/Idol/BarPanel" unique_id=210672513]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="RichTextLabel" type="RichTextLabel" parent="MainContainer/TripCut/Mid/MidContainer/CharacterContainer/CharacterDetail/IdolScrollContainer/Idol/BarPanel/SideStatus" unique_id=1756119803]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="SelfTalk" type="Label" parent="MainContainer/TripCut/Mid/MidContainer/CharacterContainer/CharacterDetail/IdolScrollContainer/Idol" unique_id=1466851622]
 layout_mode = 2
 size_flags_vertical = 2
 text = "“嗯？我可是最强的哦”"
-
-[node name="Player" type="VBoxContainer" parent="MainContainer/TripCut/Mid/MidContainer/CharacterContainer/CharacterDetail" unique_id=1408529873]
-clip_contents = true
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="Name" type="Label" parent="MainContainer/TripCut/Mid/MidContainer/CharacterContainer/CharacterDetail/Player" unique_id=198359315]
-layout_mode = 2
-size_flags_vertical = 3
-text = "制作人(玩家)"
-vertical_alignment = 1
-
-[node name="BarContainer" type="HBoxContainer" parent="MainContainer/TripCut/Mid/MidContainer/CharacterContainer/CharacterDetail/Player" unique_id=255823192]
-layout_mode = 2
-size_flags_vertical = 0
-
-[node name="Stamina" type="Label" parent="MainContainer/TripCut/Mid/MidContainer/CharacterContainer/CharacterDetail/Player/BarContainer" unique_id=111999902]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "体力"
-clip_text = true
-
-[node name="PBar" type="ProgressBar" parent="MainContainer/TripCut/Mid/MidContainer/CharacterContainer/CharacterDetail/Player/BarContainer" unique_id=2062777192]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_stretch_ratio = 3.0
-step = 1.0
-value = 100.0
-
-[node name="BarContainer2" type="HBoxContainer" parent="MainContainer/TripCut/Mid/MidContainer/CharacterContainer/CharacterDetail/Player" unique_id=1559826915]
-layout_mode = 2
-size_flags_vertical = 0
-
-[node name="Energy" type="Label" parent="MainContainer/TripCut/Mid/MidContainer/CharacterContainer/CharacterDetail/Player/BarContainer2" unique_id=478839622]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "精力"
-clip_text = true
-
-[node name="PBar" type="ProgressBar" parent="MainContainer/TripCut/Mid/MidContainer/CharacterContainer/CharacterDetail/Player/BarContainer2" unique_id=1740488700]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_stretch_ratio = 3.0
-step = 1.0
-value = 100.0
-
-[node name="BarContainer3" type="HBoxContainer" parent="MainContainer/TripCut/Mid/MidContainer/CharacterContainer/CharacterDetail/Player" unique_id=36399674]
-layout_mode = 2
-size_flags_vertical = 0
-
-[node name="San" type="Label" parent="MainContainer/TripCut/Mid/MidContainer/CharacterContainer/CharacterDetail/Player/BarContainer3" unique_id=1531669762]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "理智"
-clip_text = true
-
-[node name="PBar" type="ProgressBar" parent="MainContainer/TripCut/Mid/MidContainer/CharacterContainer/CharacterDetail/Player/BarContainer3" unique_id=605329202]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_stretch_ratio = 3.0
-step = 1.0
-value = 100.0
-
-[node name="Money" type="Label" parent="MainContainer/TripCut/Mid/MidContainer/CharacterContainer/CharacterDetail/Player" unique_id=1530305254]
-layout_mode = 2
-size_flags_vertical = 2
-text = "余额：6000日元"
 
 [node name="InteractArea" type="HBoxContainer" parent="MainContainer/TripCut/Mid/MidContainer" unique_id=305452599]
 layout_mode = 2
@@ -378,7 +337,7 @@ script = ExtResource("5_v00lw")
 clip_contents = true
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_stretch_ratio = 0.6
+size_flags_stretch_ratio = 0.5
 
 [node name="Social" type="VBoxContainer" parent="MainContainer/TripCut/Mid/MidContainer/InteractArea/CommandPanel" unique_id=1957986818]
 layout_mode = 2
@@ -552,7 +511,8 @@ alignment = 1
 visible = false
 layout_mode = 2
 text = "错误：没有找到有效的模组
-请将模组文件夹放于modules文件夹下重新启动加载"
+请将模组文件夹放于C:\\Users\\你的系统用户名\\AppData\\Roaming\\Godot\\app_userdata\\Era\\modules下
+然后重新启动加载"
 horizontal_alignment = 1
 
 [node name="Down" type="HBoxContainer" parent="MainMenu/Mid" unique_id=1092695487]
@@ -569,4 +529,3 @@ libraries/ = SubResource("AnimationLibrary_blrdj")
 [connection signal="gui_input" from="MainContainer/TripCut/Mid/MidContainer/InteractArea/RichTextPool" to="MainContainer/TripCut/Mid/MidContainer/InteractArea/RichTextPool" method="_on_gui_input"]
 [connection signal="meta_clicked" from="MainContainer/TripCut/Mid/MidContainer/InteractArea/RichTextPool" to="MainContainer/TripCut/Mid/MidContainer/InteractArea/RichTextPool" method="_on_meta_clicked"]
 [connection signal="animation_finished" from="MainContainer/TripCut/MidAniPlayer" to="." method="_on_mid_ani_player_animation_finished"]
-[connection signal="animation_finished" from="MainAniPlayer" to="." method="_on_main_ani_player_animation_finished"]

@@ -77,10 +77,13 @@ func _load_module(m_name:String):
 				var file_list = DirAccess.open(character_folder_path).get_files()
 				if file_list.size() > 0:
 					for i in file_list:
-						var ipath = character_folder_path + "/" + i
-						var t_str = str(i).trim_suffix(".json")
-						GlobalVar.character_json_path[t_str] = ipath
-						_get_and_set(ipath, "character")
+						if "init" in i:
+							pass
+						else:
+							var ipath = character_folder_path + "/" + i
+							var t_str = str(i).trim_suffix(".json")
+							GlobalVar.character_json_path[t_str] = ipath
+							_get_and_set(ipath, "character")
 			print_debug("角色索引建立完成")
 			# 初始化调色盘
 			var colortable_folder_path = GlobalVar.module_native_path + GlobalVar.module_relate_path["colortable"]
@@ -152,12 +155,12 @@ func _match_event(id:String):
 				if t_list.has(id):
 					GlobalVar.playing_data = data["events"][id]
 		var character_count = GlobalVar.playing_data["character"]
-		for i in GlobalVar.game_temp_data["character_on_stage"]:
+		for i in GlobalVar.in_game_data["character_on_stage"]:
 			if character_count.has(i):
 				character_count.erase(i)
 		if character_count.size() == 0:
 			var playing_array = []
-			if GlobalVar.game_temp_data["player_ping"] == condition[0]:
+			if GlobalVar.in_game_data["player_ping"] == condition[0]:
 				playing_array = GlobalVar.playing_data["text"]["ping"]
 			else:
 				playing_array = GlobalVar.playing_data["text"]["normal"]
