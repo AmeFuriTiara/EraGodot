@@ -56,9 +56,6 @@ func menu_out(any:String):
 func stage_change(any:Array):
 	mid_ani.play("总界面关")
 	await mid_ani.animation_finished
-	var s_text = GlobalVar.module_temp_data["stage"][any[0]][GlobalSys.system_lang_zone]
-	var d_text = GlobalVar.module_temp_data["stage"][any[0]][any[1]][GlobalSys.system_lang_zone]
-	mid_stage_status_label.text = s_text + " " + d_text + str(GlobalVar.in_game_data["clean"]) + " " + GlobalVar.in_game_data["description"]
 	GlobalSignal.emit_signal("_stage_switch_done")
 
 func stage_change_clear():

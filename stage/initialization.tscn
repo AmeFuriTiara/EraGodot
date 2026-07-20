@@ -3,9 +3,12 @@
 [ext_resource type="Script" uid="uid://7gp5op5ycihu" path="res://scripts/vanilla/initialization.gd" id="1_6ip6u"]
 [ext_resource type="Script" uid="uid://c1oriramjm4lq" path="res://scripts/vanilla/mid_container.gd" id="2_jfkm7"]
 [ext_resource type="Texture2D" uid="uid://s2hpycqojrj" path="res://resources/sprites/default_banner.jpg" id="3_6qrhe"]
+[ext_resource type="Script" uid="uid://tx2qh2p5cpcg" path="res://stage/env_status.gd" id="3_c7dvp"]
 [ext_resource type="PackedScene" uid="uid://bc6n4rlsgc1y4" path="res://stage/character_unit.tscn" id="4_o1hb2"]
 [ext_resource type="Script" uid="uid://do50c2wm16dlm" path="res://stage/idol_status_name.gd" id="5_6yg1v"]
+[ext_resource type="Script" uid="uid://o12cgk77b1gs" path="res://stage/stage_background.gd" id="5_g6xjg"]
 [ext_resource type="Script" uid="uid://bsnqtnpj5uyv5" path="res://scripts/vanilla/rich_text_pool.gd" id="5_v00lw"]
+[ext_resource type="Script" uid="uid://ri2je8cdcwv" path="res://stage/stage_status.gd" id="6_346uf"]
 [ext_resource type="Script" uid="uid://drgo0po3dpxw7" path="res://stage/social_command.gd" id="6_blrdj"]
 [ext_resource type="PackedScene" uid="uid://bvxkmlqj0tscu" path="res://stage/command_button.tscn" id="7_6yg1v"]
 [ext_resource type="Script" uid="uid://bgj1s17pxrlui" path="res://stage/special_command.gd" id="8_c7dvp"]
@@ -188,6 +191,7 @@ text = "???"
 fit_content = true
 scroll_active = false
 horizontal_alignment = 1
+script = ExtResource("3_c7dvp")
 
 [node name="StageBackground" type="TextureRect" parent="MainContainer/TripCut/Mid/MidContainer" unique_id=438550153]
 layout_mode = 2
@@ -195,6 +199,7 @@ size_flags_horizontal = 4
 size_flags_vertical = 0
 texture = ExtResource("3_6qrhe")
 stretch_mode = 6
+script = ExtResource("5_g6xjg")
 
 [node name="StageStatus" type="RichTextLabel" parent="MainContainer/TripCut/Mid/MidContainer" unique_id=982653293]
 layout_mode = 2
@@ -203,6 +208,7 @@ fit_content = true
 scroll_active = false
 autowrap_mode = 0
 horizontal_alignment = 1
+script = ExtResource("6_346uf")
 
 [node name="CharacterContainer" type="HBoxContainer" parent="MainContainer/TripCut/Mid/MidContainer" unique_id=2030420834]
 layout_mode = 2
@@ -440,6 +446,10 @@ size_flags_vertical = 3
 layout_mode = 2
 text = "[100] 离开"
 flat = true
+
+[node name="LineEdit" type="LineEdit" parent="MainContainer/TripCut/Mid/MidContainer" unique_id=929248122]
+layout_mode = 2
+placeholder_text = "在此输入文字"
 
 [node name="ButtonPool" type="HBoxContainer" parent="MainContainer/TripCut/Mid/MidContainer" unique_id=973698301]
 layout_mode = 2

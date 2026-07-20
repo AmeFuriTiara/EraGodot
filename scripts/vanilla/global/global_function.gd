@@ -123,7 +123,6 @@ func _get_and_set(path:String,target_block:String):
 		"command":
 			GlobalVar.module_temp_data["command"] = data
 		"character":
-			#data["detail"] = {}
 			GlobalVar.module_temp_data["character"][data["info"]["sid"]] = data
 		"colortable":
 			GlobalVar.module_temp_data["colortable"] = data
@@ -204,6 +203,7 @@ func _condition_checker(any:Array):
 							else:
 								GlobalSignal.emit_signal("_event_not_match",any[-1])
 
+# 传入：对应sprite组、
 func _get_sprite_path(any:Array):
 	var pre_path = "user://modules/" + GlobalVar.now_module_name
 	match any[0]:
@@ -218,7 +218,34 @@ func _get_sprite_path(any:Array):
 			var back_path = GlobalVar.module_cfg["module_relate_path"]["event_sprites"]
 			var fix_path = pre_path + "/" + back_path
 			return fix_path
-		"banner":
-			var back_path = GlobalVar.module_cfg["module_relate_path"]["banner_sprites"]
-			var fix_path = pre_path + "/" + back_path
-			return fix_path
+		"stage":
+			var back_path = GlobalVar.module_cfg["module_relate_path"]["stage_sprites"]
+			var fix_path = pre_path + "/" + back_path + "/" + any[1]
+			if DirAccess.dir_exists_absolute(fix_path):
+				var time_mark:String
+				match GlobalVar.in_game_data["time_mark"]:
+					"dawn":
+						time_mark = "night"
+					"day_break":
+						time_mark = "day"
+					"morning":
+						time_mark = "day"
+					"forenoon":
+						time_mark = "day"
+					"midday":
+						time_mark = "day"
+					"afternoon":
+						time_mark = "day"
+					"dusk":
+						time_mark = "dusk"
+					"night":
+						time_mark = "night"
+					"late_night":
+						time_mark = "night"
+				var time_fix_path = fix_path + "/" + any[2] + "_" + time_mark + ".png"
+				if FileAccess.file_exists(time_fix_path):
+					return time_fix_path
+				else:
+					var file_path = fix_path + "/" + any[2] + ".png"
+					if FileAccess.file_exists(file_path):
+						return file_path
