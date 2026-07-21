@@ -216,7 +216,6 @@ func _match_event(id:String):
 				var t_list = data["events"].keys()
 				if t_list.has(id):
 					GlobalVar.playing_data = data["events"][id]
-		var character_id = GlobalVar.playing_data["character"]
 		var character_count = GlobalVar.playing_data["character"]
 		for i in GlobalVar.in_game_data["character_on_stage"]:
 			if character_count.has(i):

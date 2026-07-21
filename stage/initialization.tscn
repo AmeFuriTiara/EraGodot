@@ -3,14 +3,17 @@
 [ext_resource type="Script" uid="uid://7gp5op5ycihu" path="res://scripts/vanilla/initialization.gd" id="1_6ip6u"]
 [ext_resource type="Script" uid="uid://c1oriramjm4lq" path="res://scripts/vanilla/mid_container.gd" id="2_jfkm7"]
 [ext_resource type="Texture2D" uid="uid://s2hpycqojrj" path="res://resources/sprites/default_banner.jpg" id="3_6qrhe"]
-[ext_resource type="Script" uid="uid://tx2qh2p5cpcg" path="res://stage/env_status.gd" id="3_c7dvp"]
+[ext_resource type="Script" uid="uid://tx2qh2p5cpcg" path="res://scripts/vanilla/env_status.gd" id="3_c7dvp"]
 [ext_resource type="PackedScene" uid="uid://bc6n4rlsgc1y4" path="res://stage/character_unit.tscn" id="4_o1hb2"]
-[ext_resource type="Script" uid="uid://do50c2wm16dlm" path="res://stage/idol_status_name.gd" id="5_6yg1v"]
-[ext_resource type="Script" uid="uid://o12cgk77b1gs" path="res://stage/stage_background.gd" id="5_g6xjg"]
+[ext_resource type="Script" uid="uid://do50c2wm16dlm" path="res://scripts/vanilla/idol_status_name.gd" id="5_6yg1v"]
+[ext_resource type="Script" uid="uid://o12cgk77b1gs" path="res://scripts/vanilla/stage_background.gd" id="5_g6xjg"]
 [ext_resource type="Script" uid="uid://bsnqtnpj5uyv5" path="res://scripts/vanilla/rich_text_pool.gd" id="5_v00lw"]
-[ext_resource type="Script" uid="uid://ri2je8cdcwv" path="res://stage/stage_status.gd" id="6_346uf"]
-[ext_resource type="Script" uid="uid://b3ryl1o5dqfm0" path="res://stage/command_panel.gd" id="10_c7dvp"]
-[ext_resource type="Script" uid="uid://cd0dqquhnsv2o" path="res://stage/line_edit.gd" id="11_c7dvp"]
+[ext_resource type="Script" uid="uid://ri2je8cdcwv" path="res://scripts/vanilla/stage_status.gd" id="6_346uf"]
+[ext_resource type="Script" uid="uid://p4wi318v55xs" path="res://scripts/vanilla/character_scroll_container.gd" id="7_g6xjg"]
+[ext_resource type="Script" uid="uid://bbj1teb66xi5f" path="res://scripts/vanilla/idol_status_detail.gd" id="9_6ipcq"]
+[ext_resource type="Script" uid="uid://b3ryl1o5dqfm0" path="res://scripts/vanilla/command_panel.gd" id="10_c7dvp"]
+[ext_resource type="Script" uid="uid://dpldnwlnbq1jr" path="res://scripts/vanilla/self_talk.gd" id="11_346uf"]
+[ext_resource type="Script" uid="uid://cd0dqquhnsv2o" path="res://scripts/vanilla/line_edit.gd" id="11_c7dvp"]
 
 [sub_resource type="Gradient" id="Gradient_xpom4"]
 offsets = PackedFloat32Array(0, 0.1514423, 0.5745192, 1)
@@ -223,6 +226,7 @@ size_flags_stretch_ratio = 0.6
 horizontal_scroll_mode = 2
 vertical_scroll_mode = 0
 scroll_horizontal_by_default = true
+script = ExtResource("7_g6xjg")
 
 [node name="CharacterPool" type="HBoxContainer" parent="MainContainer/TripCut/Mid/MidContainer/CharacterContainer/CharacterDetail/ScrollContainer" unique_id=1411430183]
 layout_mode = 2
@@ -259,6 +263,7 @@ size_flags_vertical = 8
 text = "☆人员名册"
 flat = true
 alignment = 2
+script = ExtResource("9_6ipcq")
 
 [node name="BarPanel" type="HBoxContainer" parent="MainContainer/TripCut/Mid/MidContainer/CharacterContainer/CharacterDetail/IdolScrollContainer/Idol" unique_id=564100323]
 layout_mode = 2
@@ -312,6 +317,15 @@ size_flags_stretch_ratio = 3.0
 step = 1.0
 value = 100.0
 
+[node name="SelfTalk" type="RichTextLabel" parent="MainContainer/TripCut/Mid/MidContainer/CharacterContainer/CharacterDetail/IdolScrollContainer/Idol/BarPanel/MainStatus" unique_id=1186129568]
+layout_mode = 2
+size_flags_vertical = 2
+bbcode_enabled = true
+text = "“嗯？我可是最强的哦”"
+fit_content = true
+scroll_active = false
+script = ExtResource("11_346uf")
+
 [node name="SideStatus" type="VBoxContainer" parent="MainContainer/TripCut/Mid/MidContainer/CharacterContainer/CharacterDetail/IdolScrollContainer/Idol/BarPanel" unique_id=210672513]
 layout_mode = 2
 size_flags_horizontal = 3
@@ -319,11 +333,6 @@ size_flags_horizontal = 3
 [node name="RichTextLabel" type="RichTextLabel" parent="MainContainer/TripCut/Mid/MidContainer/CharacterContainer/CharacterDetail/IdolScrollContainer/Idol/BarPanel/SideStatus" unique_id=1756119803]
 layout_mode = 2
 size_flags_vertical = 3
-
-[node name="SelfTalk" type="Label" parent="MainContainer/TripCut/Mid/MidContainer/CharacterContainer/CharacterDetail/IdolScrollContainer/Idol" unique_id=1466851622]
-layout_mode = 2
-size_flags_vertical = 2
-text = "“嗯？我可是最强的哦”"
 
 [node name="InteractArea" type="HBoxContainer" parent="MainContainer/TripCut/Mid/MidContainer" unique_id=305452599]
 layout_mode = 2
@@ -518,7 +527,7 @@ size_flags_horizontal = 3
 [node name="MainAniPlayer" type="AnimationPlayer" parent="." unique_id=527072742]
 libraries/ = SubResource("AnimationLibrary_blrdj")
 
-[connection signal="gui_input" from="MainContainer/TripCut/Mid/MidContainer/InteractArea/RichTextPool" to="MainContainer/TripCut/Mid/MidContainer/InteractArea/RichTextPool" method="_on_gui_input"]
+[connection signal="pressed" from="MainContainer/TripCut/Mid/MidContainer/CharacterContainer/CharacterDetail/IdolScrollContainer/Idol/IdolStatus/Detail" to="MainContainer/TripCut/Mid/MidContainer/CharacterContainer/CharacterDetail/IdolScrollContainer/Idol/IdolStatus/Detail" method="_on_pressed"]
 [connection signal="meta_clicked" from="MainContainer/TripCut/Mid/MidContainer/InteractArea/RichTextPool" to="MainContainer/TripCut/Mid/MidContainer/InteractArea/RichTextPool" method="_on_meta_clicked"]
 [connection signal="text_submitted" from="MainContainer/TripCut/Mid/MidContainer/LineEdit" to="MainContainer/TripCut/Mid/MidContainer/LineEdit" method="_on_text_submitted"]
 [connection signal="animation_finished" from="MainContainer/TripCut/MidAniPlayer" to="." method="_on_mid_ani_player_animation_finished"]

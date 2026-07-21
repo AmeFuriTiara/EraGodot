@@ -28,6 +28,7 @@ func line_edit_match(any:String):
 				GlobalSignal.emit_signal("_require_event_content",s_name)
 			else:
 				GlobalSignal.emit_signal("_call_function",s_name)
+				GlobalSignal.emit_signal("_lock_change")
 				
 
 func _on_pressed() -> void:
@@ -35,3 +36,4 @@ func _on_pressed() -> void:
 		GlobalSignal.emit_signal("_require_event_content",s_name)
 	else:
 		GlobalSignal.emit_signal("_call_function",s_name)
+		GlobalSignal.emit_signal("_lock_change")

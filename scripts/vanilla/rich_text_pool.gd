@@ -65,6 +65,8 @@ func get_event_content(result):
 func push_event_content():
 	if wait_for_choice == true:
 		return
+	if playing_array.size() == 0:
+		GlobalSignal.emit_signal("_update_stage")
 	if playing_array.size() > 0:
 		var content = playing_array.pop_back()
 		if playing_array.size() == 0:
@@ -132,15 +134,15 @@ func push_event_content():
 				else:
 					self.append_text("\n" + t_text)
 
-func _on_gui_input(event: InputEvent) -> void:
+func _input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
 		if event.pressed:
 			if event.double_click:
-				push_event_content()
+				if playing_array.size() > 0:
+					push_event_content()
 			else:
-				push_event_content()
-
-func _input(event: InputEvent) -> void:
+				if playing_array.size() > 0:
+					push_event_content()
 	if event.is_action_pressed("ui_accept"):
 		if playing_array.size() > 0:
 			push_event_content()

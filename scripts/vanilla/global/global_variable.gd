@@ -28,6 +28,6 @@ var in_game_data:Dictionary = {
 	"weather":"sunny",
 	"temperature":17,
 	"now_location":["school","auditorium_outside"],
-	"character_on_stage":["player","asari"],
+	"character_on_stage":["player","asari","saki"],
 	"select_one":"asari"
 }

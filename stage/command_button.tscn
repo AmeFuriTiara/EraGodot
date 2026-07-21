@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bvxkmlqj0tscu"]
 
-[ext_resource type="Script" uid="uid://027hhtsw6k2q" path="res://stage/command_button.gd" id="1_y3yv2"]
+[ext_resource type="Script" uid="uid://027hhtsw6k2q" path="res://scripts/vanilla/command_button.gd" id="1_y3yv2"]
 
 [node name="CButton" type="Button" unique_id=601053086]
 text = "[1] 摸头"
