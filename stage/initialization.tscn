@@ -9,10 +9,8 @@
 [ext_resource type="Script" uid="uid://o12cgk77b1gs" path="res://stage/stage_background.gd" id="5_g6xjg"]
 [ext_resource type="Script" uid="uid://bsnqtnpj5uyv5" path="res://scripts/vanilla/rich_text_pool.gd" id="5_v00lw"]
 [ext_resource type="Script" uid="uid://ri2je8cdcwv" path="res://stage/stage_status.gd" id="6_346uf"]
-[ext_resource type="Script" uid="uid://drgo0po3dpxw7" path="res://stage/social_command.gd" id="6_blrdj"]
-[ext_resource type="PackedScene" uid="uid://bvxkmlqj0tscu" path="res://stage/command_button.tscn" id="7_6yg1v"]
-[ext_resource type="Script" uid="uid://bgj1s17pxrlui" path="res://stage/special_command.gd" id="8_c7dvp"]
-[ext_resource type="Script" uid="uid://42o018vgm6hx" path="res://stage/sekuhara_command.gd" id="9_6ipcq"]
+[ext_resource type="Script" uid="uid://b3ryl1o5dqfm0" path="res://stage/command_panel.gd" id="10_c7dvp"]
+[ext_resource type="Script" uid="uid://cd0dqquhnsv2o" path="res://stage/line_edit.gd" id="11_c7dvp"]
 
 [sub_resource type="Gradient" id="Gradient_xpom4"]
 offsets = PackedFloat32Array(0, 0.1514423, 0.5745192, 1)
@@ -258,7 +256,7 @@ script = ExtResource("5_6yg1v")
 [node name="Detail" type="Button" parent="MainContainer/TripCut/Mid/MidContainer/CharacterContainer/CharacterDetail/IdolScrollContainer/Idol/IdolStatus" unique_id=522352283]
 layout_mode = 2
 size_flags_vertical = 8
-text = "☆学生名册"
+text = "☆人员名册"
 flat = true
 alignment = 2
 
@@ -336,7 +334,6 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 bbcode_enabled = true
-text = "[url=asari_first_meeting|点我试试！]点我试试！[/url]"
 script = ExtResource("5_v00lw")
 
 [node name="CommandPanel" type="VBoxContainer" parent="MainContainer/TripCut/Mid/MidContainer/InteractArea" unique_id=1443622029]
@@ -344,11 +341,11 @@ clip_contents = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.5
+script = ExtResource("10_c7dvp")
 
 [node name="Social" type="VBoxContainer" parent="MainContainer/TripCut/Mid/MidContainer/InteractArea/CommandPanel" unique_id=1957986818]
 layout_mode = 2
 size_flags_vertical = 3
-script = ExtResource("6_blrdj")
 
 [node name="Label" type="Label" parent="MainContainer/TripCut/Mid/MidContainer/InteractArea/CommandPanel/Social" unique_id=2046215673]
 layout_mode = 2
@@ -365,24 +362,10 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="CButton" parent="MainContainer/TripCut/Mid/MidContainer/InteractArea/CommandPanel/Social/ScrollContainer/ButtonPool" unique_id=601053086 instance=ExtResource("7_6yg1v")]
-layout_mode = 2
-
-[node name="Button2" type="Button" parent="MainContainer/TripCut/Mid/MidContainer/InteractArea/CommandPanel/Social/ScrollContainer/ButtonPool" unique_id=67755764]
-layout_mode = 2
-text = "[2] 赞美"
-flat = true
-
-[node name="Button3" type="Button" parent="MainContainer/TripCut/Mid/MidContainer/InteractArea/CommandPanel/Social/ScrollContainer/ButtonPool" unique_id=318092255]
-layout_mode = 2
-text = "[3] 询问接下来的安排"
-flat = true
-
 [node name="Special" type="VBoxContainer" parent="MainContainer/TripCut/Mid/MidContainer/InteractArea/CommandPanel" unique_id=475848764]
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.5
-script = ExtResource("8_c7dvp")
 
 [node name="Label" type="Label" parent="MainContainer/TripCut/Mid/MidContainer/InteractArea/CommandPanel/Special" unique_id=564046212]
 layout_mode = 2
@@ -399,15 +382,9 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Button" type="Button" parent="MainContainer/TripCut/Mid/MidContainer/InteractArea/CommandPanel/Special/ScrollContainer/ButtonPool" unique_id=321859025]
-layout_mode = 2
-text = "[999] 查看手机"
-flat = true
-
 [node name="Sekuhara" type="VBoxContainer" parent="MainContainer/TripCut/Mid/MidContainer/InteractArea/CommandPanel" unique_id=1174490085]
 layout_mode = 2
 size_flags_vertical = 3
-script = ExtResource("9_6ipcq")
 
 [node name="Label" type="Label" parent="MainContainer/TripCut/Mid/MidContainer/InteractArea/CommandPanel/Sekuhara" unique_id=1413243833]
 layout_mode = 2
@@ -424,32 +401,37 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Button" type="Button" parent="MainContainer/TripCut/Mid/MidContainer/InteractArea/CommandPanel/Sekuhara/ScrollContainer/ButtonPool" unique_id=1168074213]
+[node name="Stage" type="VBoxContainer" parent="MainContainer/TripCut/Mid/MidContainer/InteractArea/CommandPanel" unique_id=755745131]
 layout_mode = 2
-text = "[88] 闻气味"
-flat = true
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.25
 
-[node name="Bottom" type="VBoxContainer" parent="MainContainer/TripCut/Mid/MidContainer/InteractArea/CommandPanel" unique_id=755745131]
-layout_mode = 2
-size_flags_vertical = 8
-size_flags_stretch_ratio = 0.1
-
-[node name="Label" type="Label" parent="MainContainer/TripCut/Mid/MidContainer/InteractArea/CommandPanel/Bottom" unique_id=652044281]
+[node name="Label" type="Label" parent="MainContainer/TripCut/Mid/MidContainer/InteractArea/CommandPanel/Stage" unique_id=652044281]
 layout_mode = 2
 text = "场景"
 
-[node name="ButtonPool" type="HFlowContainer" parent="MainContainer/TripCut/Mid/MidContainer/InteractArea/CommandPanel/Bottom" unique_id=1537649637]
+[node name="ScrollContainer" type="ScrollContainer" parent="MainContainer/TripCut/Mid/MidContainer/InteractArea/CommandPanel/Stage" unique_id=1460287679]
 layout_mode = 2
 size_flags_vertical = 3
+vertical_scroll_mode = 2
+scroll_hint_mode = 3
 
-[node name="Button" type="Button" parent="MainContainer/TripCut/Mid/MidContainer/InteractArea/CommandPanel/Bottom/ButtonPool" unique_id=88038107]
+[node name="ButtonPool" type="HFlowContainer" parent="MainContainer/TripCut/Mid/MidContainer/InteractArea/CommandPanel/Stage/ScrollContainer" unique_id=1603514782]
 layout_mode = 2
-text = "[100] 离开"
-flat = true
+size_flags_horizontal = 3
+size_flags_vertical = 3
 
 [node name="LineEdit" type="LineEdit" parent="MainContainer/TripCut/Mid/MidContainer" unique_id=929248122]
 layout_mode = 2
-placeholder_text = "在此输入文字"
+placeholder_text = "按Enter输入文字"
+keep_editing_on_text_submit = true
+context_menu_enabled = false
+emoji_menu_enabled = false
+middle_mouse_paste_enabled = false
+drag_and_drop_selection_enabled = false
+virtual_keyboard_enabled = false
+caret_blink = true
+script = ExtResource("11_c7dvp")
 
 [node name="ButtonPool" type="HBoxContainer" parent="MainContainer/TripCut/Mid/MidContainer" unique_id=973698301]
 layout_mode = 2
@@ -538,4 +520,5 @@ libraries/ = SubResource("AnimationLibrary_blrdj")
 
 [connection signal="gui_input" from="MainContainer/TripCut/Mid/MidContainer/InteractArea/RichTextPool" to="MainContainer/TripCut/Mid/MidContainer/InteractArea/RichTextPool" method="_on_gui_input"]
 [connection signal="meta_clicked" from="MainContainer/TripCut/Mid/MidContainer/InteractArea/RichTextPool" to="MainContainer/TripCut/Mid/MidContainer/InteractArea/RichTextPool" method="_on_meta_clicked"]
+[connection signal="text_submitted" from="MainContainer/TripCut/Mid/MidContainer/LineEdit" to="MainContainer/TripCut/Mid/MidContainer/LineEdit" method="_on_text_submitted"]
 [connection signal="animation_finished" from="MainContainer/TripCut/MidAniPlayer" to="." method="_on_mid_ani_player_animation_finished"]

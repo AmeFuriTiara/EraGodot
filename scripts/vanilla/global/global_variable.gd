@@ -18,9 +18,6 @@ var event_json_path:Dictionary = {}
 var playing_data:Dictionary = {}
 
 var in_game_data:Dictionary = {
-	"temp":{
-		"select_one_name":"",
-	},
 	"player_ping":"asari",
 	"season":1,
 	"week_count":1,
@@ -31,7 +28,6 @@ var in_game_data:Dictionary = {
 	"weather":"sunny",
 	"temperature":17,
 	"now_location":["school","auditorium_outside"],
-	"location_dirty":[],
-	"description":"'空气中弥漫着一股花香'",
-	"character_on_stage":["player","asari"]
+	"character_on_stage":["player","asari"],
+	"select_one":"asari"
 }

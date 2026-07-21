@@ -112,7 +112,6 @@ func _get_and_set(path:String,target_block:String):
 	var temp = FileAccess.open(path,FileAccess.READ)
 	var text = temp.get_as_text()
 	var data = JSON.parse_string(text)
-	temp.close()
 	match target_block:
 		"variable":
 			GlobalVar.module_temp_data["variable"] = data
@@ -135,11 +134,45 @@ func _get_and_set(path:String,target_block:String):
 			for i in arr:
 				GlobalVar.module_temp_data["event"]["events"][i] = {}
 				GlobalVar.module_temp_data["event"]["events"][i]["condition"] = data["events"][i]["condition"]
+	temp.close()
 
 # 比对索引返回数据
 func _match_event(id:String):
 	# 复杂条件判断区域
+	if GlobalVar.module_temp_data["event"]["events"].has(id) == false:
+		print_debug("错误：" + id + "对应事件不存在")
+		return
 	var condition = GlobalVar.module_temp_data["event"]["events"][id]["condition"]
+	if condition.size() == 0:
+		# 用去除法算事件的角色触发条件
+		var arr = GlobalVar.module_temp_data["event"]["events"].keys()
+		if arr.has(id):
+			var list = GlobalVar.event_json_path.keys()
+			for key in list:
+				var temp = FileAccess.open(GlobalVar.event_json_path[key],FileAccess.READ)
+				var text = temp.get_as_text()
+				var data = JSON.parse_string(text)
+				temp.close()
+				var t_list = data["events"].keys()
+				if t_list.has(id):
+					GlobalVar.playing_data = data["events"][id]
+		var character_id = GlobalVar.playing_data["character"]
+		var character_count = GlobalVar.playing_data["character"]
+		for i in GlobalVar.in_game_data["character_on_stage"]:
+			if character_count.has(i):
+				character_count.erase(i)
+		if character_count.size() == 0:
+			var playing_array = []
+			if character_id.has(GlobalVar.in_game_data["player_ping"]):
+				playing_array = GlobalVar.playing_data["text"]["ping"]
+			else:
+				playing_array = GlobalVar.playing_data["text"]["normal"]
+			playing_array.reverse()
+			GlobalSignal.emit_signal("_return_event_content", playing_array)
+		else:
+			var playing_array = GlobalVar.playing_data["text"]["normal"]
+			playing_array.reverse()
+			GlobalSignal.emit_signal("_return_event_content", playing_array)
 	if _condition_checker([condition,id]) == true:
 		# 用去除法算事件的角色触发条件
 		var arr = GlobalVar.module_temp_data["event"]["events"].keys()
@@ -153,13 +186,14 @@ func _match_event(id:String):
 				var t_list = data["events"].keys()
 				if t_list.has(id):
 					GlobalVar.playing_data = data["events"][id]
+		var character_id = GlobalVar.playing_data["character"]
 		var character_count = GlobalVar.playing_data["character"]
 		for i in GlobalVar.in_game_data["character_on_stage"]:
 			if character_count.has(i):
 				character_count.erase(i)
 		if character_count.size() == 0:
 			var playing_array = []
-			if GlobalVar.in_game_data["player_ping"] == condition[0]:
+			if character_id.has(GlobalVar.in_game_data["player_ping"]):
 				playing_array = GlobalVar.playing_data["text"]["ping"]
 			else:
 				playing_array = GlobalVar.playing_data["text"]["normal"]
@@ -169,10 +203,40 @@ func _match_event(id:String):
 			var playing_array = GlobalVar.playing_data["text"]["normal"]
 			playing_array.reverse()
 			GlobalSignal.emit_signal("_return_event_content", playing_array)
+	else:
+		# 用去除法算事件的角色触发条件
+		var arr = GlobalVar.module_temp_data["event"]["events"].keys()
+		if arr.has(id):
+			var list = GlobalVar.event_json_path.keys()
+			for key in list:
+				var temp = FileAccess.open(GlobalVar.event_json_path[key],FileAccess.READ)
+				var text = temp.get_as_text()
+				var data = JSON.parse_string(text)
+				temp.close()
+				var t_list = data["events"].keys()
+				if t_list.has(id):
+					GlobalVar.playing_data = data["events"][id]
+		var character_id = GlobalVar.playing_data["character"]
+		var character_count = GlobalVar.playing_data["character"]
+		for i in GlobalVar.in_game_data["character_on_stage"]:
+			if character_count.has(i):
+				character_count.erase(i)
+		if character_count.size() == 0:
+			if GlobalVar.playing_data["text"].has("fail"):
+				var playing_array = GlobalVar.playing_data["text"]["fail"]
+				playing_array.reverse()
+				GlobalSignal.emit_signal("_return_event_content", playing_array)
+		else:
+			if GlobalVar.playing_data["text"].has("fail"):
+				var playing_array = GlobalVar.playing_data["text"]["fail"]
+				playing_array.reverse()
+				GlobalSignal.emit_signal("_return_event_content", playing_array)
 
 func _condition_checker(any:Array):
 	var condition = any[0]
 	if condition.size() != 0:
+		if condition[0] == "select_one":
+			condition[0] = GlobalVar.in_game_data["select_one"]
 		if GlobalVar.character_json_path.keys().has(condition[0]):
 			if GlobalVar.module_temp_data["character"].keys().has(condition[0]):
 				if condition.size() == 5:
@@ -181,29 +245,29 @@ func _condition_checker(any:Array):
 							if GlobalVar.module_temp_data["character"][condition[0]]["detail"][condition[1]][condition[2]] < condition[4]:
 								return true
 							else:
-								GlobalSignal.emit_signal("_event_not_match",any[-1])
+								return false
 						"LE":
 							if GlobalVar.module_temp_data["character"][condition[0]]["detail"][condition[1]][condition[2]] <= condition[4]:
 								return true
 							else:
-								GlobalSignal.emit_signal("_event_not_match",any[-1])
+								return false
 						"E":
 							if GlobalVar.module_temp_data["character"][condition[0]]["detail"][condition[1]][condition[2]] == condition[4]:
 								return true
 							else:
-								GlobalSignal.emit_signal("_event_not_match",any[-1])
+								return false
 						"GE":
 							if GlobalVar.module_temp_data["character"][condition[0]]["detail"][condition[1]][condition[2]] >= condition[4]:
 								return true
 							else:
-								GlobalSignal.emit_signal("_event_not_match",any[-1])
+								return false
 						"G":
 							if GlobalVar.module_temp_data["character"][condition[0]]["detail"][condition[1]][condition[2]] > condition[4]:
 								return true
 							else:
-								GlobalSignal.emit_signal("_event_not_match",any[-1])
+								return false
 
-# 传入：对应sprite组、
+# 传入：对应sprite组
 func _get_sprite_path(any:Array):
 	var pre_path = "user://modules/" + GlobalVar.now_module_name
 	match any[0]:
