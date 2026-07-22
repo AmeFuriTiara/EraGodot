@@ -39,7 +39,7 @@ func _on_chracter_icon_mouse_exited() -> void:
 
 func _on_chracter_icon_gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
-		if event.pressed:
+		if event.is_action_pressed("mouse_left_click"):
 			if event.double_click:
 				if mouse_in == true && GlobalVar.in_game_data["select_one"] != s_name:
 					GlobalVar.in_game_data["select_one"] = s_name

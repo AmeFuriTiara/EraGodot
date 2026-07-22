@@ -5,23 +5,24 @@ func _ready() -> void:
 	GlobalSignal.connect("_update_stage",Callable(self,"native_update_data"))
 
 func native_update_data():
-	var select = GlobalVar.in_game_data["select_one"]
-	var key = GlobalVar.module_temp_data["character"][select]["info"]["self_talk"].keys()
-	var key_size = key.size()
-	if key_size == 0:
-		self.text = ""
-		return
-	if key_size == 1:
-		self.text = translate(GlobalVar.module_temp_data["character"][select]["info"]["self_talk"]["1"][GlobalSys.system_lang_zone])
-		if GlobalVar.module_temp_data["colortable"].keys().has(select):
-			self.text = "[color=" + GlobalVar.module_temp_data["colortable"][select] + "]" + self.text + "[/color]"
-		return
-	if key_size > 1:
-		var result = key.pick_random()
-		self.text = translate(GlobalVar.module_temp_data["character"][select]["info"]["self_talk"][str(result)][GlobalSys.system_lang_zone])
-		if GlobalVar.module_temp_data["colortable"].keys().has(select):
-			self.text = "[color=" + GlobalVar.module_temp_data["colortable"][select] + "]" + self.text + "[/color]"
-		return
+	if GlobalFunc._check_if_character_stage():
+		var select = GlobalVar.in_game_data["select_one"]
+		var key = GlobalVar.module_temp_data["character"][select]["info"]["self_talk"].keys()
+		var key_size = key.size()
+		if key_size == 0:
+			self.text = ""
+			return
+		if key_size == 1:
+			self.text = translate(GlobalVar.module_temp_data["character"][select]["info"]["self_talk"]["1"][GlobalSys.system_lang_zone])
+			if GlobalVar.module_temp_data["colortable"].keys().has(select):
+				self.text = "[color=" + GlobalVar.module_temp_data["colortable"][select] + "]" + self.text + "[/color]"
+			return
+		if key_size > 1:
+			var result = key.pick_random()
+			self.text = translate(GlobalVar.module_temp_data["character"][select]["info"]["self_talk"][str(result)][GlobalSys.system_lang_zone])
+			if GlobalVar.module_temp_data["colortable"].keys().has(select):
+				self.text = "[color=" + GlobalVar.module_temp_data["colortable"][select] + "]" + self.text + "[/color]"
+			return
 
 func translate(any:String):
 	var regex = RegEx.new()

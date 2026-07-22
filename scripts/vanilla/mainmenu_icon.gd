@@ -24,7 +24,7 @@ func _on_icon_texture_mouse_exited() -> void:
 func _on_icon_texture_gui_input(event: InputEvent) -> void:
 	if mouse_in == true && has_save_folder == false:
 		if event is InputEventMouseButton:
-			if event.pressed:
+			if event.is_action_pressed("mouse_left_click"):
 				if event.double_click:
 					load_lock = true
 					GlobalSignal.emit_signal("_new_game",s_name)
@@ -35,7 +35,7 @@ func _on_icon_texture_gui_input(event: InputEvent) -> void:
 					return
 	if mouse_in == true && side_menu_shown == false && has_save_folder == true:
 		if event is InputEventMouseButton:
-			if event.pressed:
+			if event.is_action_pressed("mouse_left_click"):
 				if event.double_click:
 					$IconAniPlayer.play("显示")
 					await  $IconAniPlayer.animation_finished
@@ -48,7 +48,7 @@ func _on_icon_texture_gui_input(event: InputEvent) -> void:
 					return
 	if mouse_in == true && side_menu_shown == true:
 		if event is InputEventMouseButton:
-			if event.pressed:
+			if event.is_action_pressed("mouse_left_click"):
 				if event.double_click:
 					$IconAniPlayer.play_backwards("显示")
 					await  $IconAniPlayer.animation_finished
@@ -63,7 +63,7 @@ func _on_icon_texture_gui_input(event: InputEvent) -> void:
 func _input(event: InputEvent) -> void:
 	if mouse_in == false && mouse_in_side_menu == false && side_menu_shown == true:
 		if event is InputEventMouseButton:
-			if event.pressed:
+			if event.is_action_pressed("mouse_left_click"):
 				if event.double_click:
 					$IconTexture.self_modulate = Color.from_string(def_module_color,Color.ALICE_BLUE)
 					$IconAniPlayer.play_backwards("显示")

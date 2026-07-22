@@ -2,6 +2,7 @@ extends Button
 
 var s_id:String
 var s_name:String
+var s_time_cost:int
 var is_function:bool
 var button_lock:bool = false
 var stand_by_color:String = "#FFFFFF"
@@ -26,14 +27,19 @@ func line_edit_match(any:String):
 		if num == int(s_id):
 			if is_function == false && button_lock == false:
 				GlobalSignal.emit_signal("_require_event_content",s_name)
+				GlobalSignal.emit_signal("_time_tick",s_time_cost)
 			else:
 				GlobalSignal.emit_signal("_call_function",s_name)
+				GlobalSignal.emit_signal("_time_tick",s_time_cost)
 				GlobalSignal.emit_signal("_lock_change")
-				
 
 func _on_pressed() -> void:
-	if is_function == false && button_lock == false:
-		GlobalSignal.emit_signal("_require_event_content",s_name)
+	if is_function == false:
+		if button_lock == false:
+			GlobalSignal.emit_signal("_require_event_content",s_name)
+			GlobalSignal.emit_signal("_time_tick",s_time_cost)
 	else:
-		GlobalSignal.emit_signal("_call_function",s_name)
-		GlobalSignal.emit_signal("_lock_change")
+		if button_lock == false:
+			GlobalSignal.emit_signal("_call_function",s_name)
+			GlobalSignal.emit_signal("_time_tick",s_time_cost)
+			GlobalSignal.emit_signal("_lock_change")

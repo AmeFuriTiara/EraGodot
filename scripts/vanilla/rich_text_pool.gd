@@ -136,7 +136,7 @@ func push_event_content():
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
-		if event.pressed:
+		if event.is_action_pressed("mouse_left_click"):
 			if event.double_click:
 				if playing_array.size() > 0:
 					push_event_content()

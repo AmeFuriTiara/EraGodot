@@ -1,6 +1,6 @@
 extends Button
 
-var s_name = "check_roster"
+var s_name = "check_schedule"
 var is_function = "true"
 var button_lock:bool = false
 var stand_by_color:String = "#FFFFFF"

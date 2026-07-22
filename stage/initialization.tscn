@@ -10,10 +10,20 @@
 [ext_resource type="Script" uid="uid://bsnqtnpj5uyv5" path="res://scripts/vanilla/rich_text_pool.gd" id="5_v00lw"]
 [ext_resource type="Script" uid="uid://ri2je8cdcwv" path="res://scripts/vanilla/stage_status.gd" id="6_346uf"]
 [ext_resource type="Script" uid="uid://p4wi318v55xs" path="res://scripts/vanilla/character_scroll_container.gd" id="7_g6xjg"]
+[ext_resource type="Script" uid="uid://cf0xlpujgiu8v" path="res://scripts/vanilla/character_container.gd" id="7_uoeen"]
 [ext_resource type="Script" uid="uid://bbj1teb66xi5f" path="res://scripts/vanilla/idol_status_detail.gd" id="9_6ipcq"]
 [ext_resource type="Script" uid="uid://b3ryl1o5dqfm0" path="res://scripts/vanilla/command_panel.gd" id="10_c7dvp"]
 [ext_resource type="Script" uid="uid://dpldnwlnbq1jr" path="res://scripts/vanilla/self_talk.gd" id="11_346uf"]
 [ext_resource type="Script" uid="uid://cd0dqquhnsv2o" path="res://scripts/vanilla/line_edit.gd" id="11_c7dvp"]
+[ext_resource type="Script" uid="uid://db406tx5s6w61" path="res://scripts/vanilla/idol_stamina_label.gd" id="12_ybyws"]
+[ext_resource type="Script" uid="uid://7nbnvnh5ib0w" path="res://scripts/vanilla/idol_energy_label.gd" id="13_mg0hr"]
+[ext_resource type="Script" uid="uid://b2ikjdk0idtqm" path="res://scripts/vanilla/idol_san_label.gd" id="14_6pkcj"]
+[ext_resource type="Script" uid="uid://m3dpfgsvooqy" path="res://scripts/vanilla/player_schedule_detail.gd" id="14_jvwtw"]
+[ext_resource type="Script" uid="uid://bkplumlj6soc2" path="res://scripts/vanilla/player_status_name.gd" id="15_fxnlt"]
+[ext_resource type="Script" uid="uid://bf7s1uncas7i4" path="res://scripts/vanilla/player_money_label.gd" id="17_ocw3a"]
+[ext_resource type="Script" uid="uid://cdvupqef6g6kl" path="res://scripts/vanilla/player_stamina_label.gd" id="20_6pkcj"]
+[ext_resource type="Script" uid="uid://civl571qm0c54" path="res://scripts/vanilla/player_energy_label.gd" id="21_rnktc"]
+[ext_resource type="Script" uid="uid://cou5rpao2m56a" path="res://scripts/vanilla/player_san_label.gd" id="22_nyiev"]
 
 [sub_resource type="Gradient" id="Gradient_xpom4"]
 offsets = PackedFloat32Array(0, 0.1514423, 0.5745192, 1)
@@ -211,134 +221,167 @@ autowrap_mode = 0
 horizontal_alignment = 1
 script = ExtResource("6_346uf")
 
-[node name="CharacterContainer" type="HBoxContainer" parent="MainContainer/TripCut/Mid/MidContainer" unique_id=2030420834]
+[node name="InteractArea" type="HBoxContainer" parent="MainContainer/TripCut/Mid/MidContainer" unique_id=305452599]
 layout_mode = 2
+size_flags_vertical = 3
 
-[node name="CharacterDetail" type="HBoxContainer" parent="MainContainer/TripCut/Mid/MidContainer/CharacterContainer" unique_id=1838600584]
+[node name="MainArea" type="VBoxContainer" parent="MainContainer/TripCut/Mid/MidContainer/InteractArea" unique_id=928483405]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="CharacterContainer" type="HBoxContainer" parent="MainContainer/TripCut/Mid/MidContainer/InteractArea/MainArea" unique_id=2030420834]
+layout_mode = 2
+script = ExtResource("7_uoeen")
+
+[node name="CharacterDetail" type="HBoxContainer" parent="MainContainer/TripCut/Mid/MidContainer/InteractArea/MainArea/CharacterContainer" unique_id=1838600584]
 clip_contents = true
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="ScrollContainer" type="ScrollContainer" parent="MainContainer/TripCut/Mid/MidContainer/CharacterContainer/CharacterDetail" unique_id=1695489554]
+[node name="ScrollContainer" type="ScrollContainer" parent="MainContainer/TripCut/Mid/MidContainer/InteractArea/MainArea/CharacterContainer/CharacterDetail" unique_id=1695489554]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_stretch_ratio = 0.6
-horizontal_scroll_mode = 2
 vertical_scroll_mode = 0
 scroll_horizontal_by_default = true
 script = ExtResource("7_g6xjg")
 
-[node name="CharacterPool" type="HBoxContainer" parent="MainContainer/TripCut/Mid/MidContainer/CharacterContainer/CharacterDetail/ScrollContainer" unique_id=1411430183]
+[node name="CharacterPool" type="HBoxContainer" parent="MainContainer/TripCut/Mid/MidContainer/InteractArea/MainArea/CharacterContainer/CharacterDetail/ScrollContainer" unique_id=1411430183]
 layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 0
 alignment = 1
 
-[node name="CharacterUnit" parent="MainContainer/TripCut/Mid/MidContainer/CharacterContainer/CharacterDetail/ScrollContainer/CharacterPool" unique_id=978689896 instance=ExtResource("4_o1hb2")]
+[node name="CharacterUnit" parent="MainContainer/TripCut/Mid/MidContainer/InteractArea/MainArea/CharacterContainer/CharacterDetail/ScrollContainer/CharacterPool" unique_id=978689896 instance=ExtResource("4_o1hb2")]
 layout_mode = 2
 
-[node name="IdolScrollContainer" type="ScrollContainer" parent="MainContainer/TripCut/Mid/MidContainer/CharacterContainer/CharacterDetail" unique_id=234894817]
-layout_mode = 2
-size_flags_horizontal = 3
-vertical_scroll_mode = 2
-
-[node name="Idol" type="VBoxContainer" parent="MainContainer/TripCut/Mid/MidContainer/CharacterContainer/CharacterDetail/IdolScrollContainer" unique_id=341457340]
+[node name="Status" type="VBoxContainer" parent="MainContainer/TripCut/Mid/MidContainer/InteractArea/MainArea/CharacterContainer/CharacterDetail" unique_id=341457340]
 clip_contents = true
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="IdolStatus" type="HBoxContainer" parent="MainContainer/TripCut/Mid/MidContainer/CharacterContainer/CharacterDetail/IdolScrollContainer/Idol" unique_id=251538107]
-layout_mode = 2
-
-[node name="Name" type="Label" parent="MainContainer/TripCut/Mid/MidContainer/CharacterContainer/CharacterDetail/IdolScrollContainer/Idol/IdolStatus" unique_id=794296258]
+[node name="BarPanel" type="HBoxContainer" parent="MainContainer/TripCut/Mid/MidContainer/InteractArea/MainArea/CharacterContainer/CharacterDetail/Status" unique_id=564100323]
 layout_mode = 2
 size_flags_vertical = 3
-text = "花海咲季"
+
+[node name="MainStatus" type="VBoxContainer" parent="MainContainer/TripCut/Mid/MidContainer/InteractArea/MainArea/CharacterContainer/CharacterDetail/Status/BarPanel" unique_id=1965566434]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="IdolStatus" type="HBoxContainer" parent="MainContainer/TripCut/Mid/MidContainer/InteractArea/MainArea/CharacterContainer/CharacterDetail/Status/BarPanel/MainStatus" unique_id=251538107]
+layout_mode = 2
+
+[node name="Name" type="Label" parent="MainContainer/TripCut/Mid/MidContainer/InteractArea/MainArea/CharacterContainer/CharacterDetail/Status/BarPanel/MainStatus/IdolStatus" unique_id=794296258]
+layout_mode = 2
+size_flags_vertical = 3
+text = "???"
 vertical_alignment = 1
 script = ExtResource("5_6yg1v")
 
-[node name="Detail" type="Button" parent="MainContainer/TripCut/Mid/MidContainer/CharacterContainer/CharacterDetail/IdolScrollContainer/Idol/IdolStatus" unique_id=522352283]
+[node name="Detail" type="Button" parent="MainContainer/TripCut/Mid/MidContainer/InteractArea/MainArea/CharacterContainer/CharacterDetail/Status/BarPanel/MainStatus/IdolStatus" unique_id=522352283]
 layout_mode = 2
+size_flags_horizontal = 10
 size_flags_vertical = 8
-text = "☆人员名册"
+text = "☆???"
 flat = true
 alignment = 2
 script = ExtResource("9_6ipcq")
 
-[node name="BarPanel" type="HBoxContainer" parent="MainContainer/TripCut/Mid/MidContainer/CharacterContainer/CharacterDetail/IdolScrollContainer/Idol" unique_id=564100323]
-layout_mode = 2
-
-[node name="MainStatus" type="VBoxContainer" parent="MainContainer/TripCut/Mid/MidContainer/CharacterContainer/CharacterDetail/IdolScrollContainer/Idol/BarPanel" unique_id=1965566434]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="BarContainer" type="HBoxContainer" parent="MainContainer/TripCut/Mid/MidContainer/CharacterContainer/CharacterDetail/IdolScrollContainer/Idol/BarPanel/MainStatus" unique_id=576318002]
+[node name="BarContainer" type="HBoxContainer" parent="MainContainer/TripCut/Mid/MidContainer/InteractArea/MainArea/CharacterContainer/CharacterDetail/Status/BarPanel/MainStatus" unique_id=576318002]
 layout_mode = 2
 size_flags_vertical = 0
 
-[node name="Stamina" type="Label" parent="MainContainer/TripCut/Mid/MidContainer/CharacterContainer/CharacterDetail/IdolScrollContainer/Idol/BarPanel/MainStatus/BarContainer" unique_id=701266980]
+[node name="Stamina" type="Label" parent="MainContainer/TripCut/Mid/MidContainer/InteractArea/MainArea/CharacterContainer/CharacterDetail/Status/BarPanel/MainStatus/BarContainer" unique_id=701266980]
 layout_mode = 2
-text = "体力"
+text = "stamina"
 
-[node name="PBar" type="ProgressBar" parent="MainContainer/TripCut/Mid/MidContainer/CharacterContainer/CharacterDetail/IdolScrollContainer/Idol/BarPanel/MainStatus/BarContainer" unique_id=701965803]
+[node name="PBar" type="ProgressBar" parent="MainContainer/TripCut/Mid/MidContainer/InteractArea/MainArea/CharacterContainer/CharacterDetail/Status/BarPanel/MainStatus/BarContainer" unique_id=701965803]
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_vertical = 1
 size_flags_stretch_ratio = 3.0
 step = 1.0
 value = 100.0
+show_percentage = false
 
-[node name="BarContainer2" type="HBoxContainer" parent="MainContainer/TripCut/Mid/MidContainer/CharacterContainer/CharacterDetail/IdolScrollContainer/Idol/BarPanel/MainStatus" unique_id=1505144019]
+[node name="Label" type="Label" parent="MainContainer/TripCut/Mid/MidContainer/InteractArea/MainArea/CharacterContainer/CharacterDetail/Status/BarPanel/MainStatus/BarContainer/PBar" unique_id=1257812676]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Na/Na"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("12_ybyws")
+
+[node name="BarContainer2" type="HBoxContainer" parent="MainContainer/TripCut/Mid/MidContainer/InteractArea/MainArea/CharacterContainer/CharacterDetail/Status/BarPanel/MainStatus" unique_id=1505144019]
 layout_mode = 2
 size_flags_vertical = 0
 
-[node name="Energy" type="Label" parent="MainContainer/TripCut/Mid/MidContainer/CharacterContainer/CharacterDetail/IdolScrollContainer/Idol/BarPanel/MainStatus/BarContainer2" unique_id=679166966]
+[node name="Energy" type="Label" parent="MainContainer/TripCut/Mid/MidContainer/InteractArea/MainArea/CharacterContainer/CharacterDetail/Status/BarPanel/MainStatus/BarContainer2" unique_id=679166966]
 layout_mode = 2
-text = "精力"
+text = "energy"
 
-[node name="PBar" type="ProgressBar" parent="MainContainer/TripCut/Mid/MidContainer/CharacterContainer/CharacterDetail/IdolScrollContainer/Idol/BarPanel/MainStatus/BarContainer2" unique_id=1886814224]
+[node name="PBar" type="ProgressBar" parent="MainContainer/TripCut/Mid/MidContainer/InteractArea/MainArea/CharacterContainer/CharacterDetail/Status/BarPanel/MainStatus/BarContainer2" unique_id=1886814224]
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_vertical = 1
 size_flags_stretch_ratio = 3.0
 step = 1.0
 value = 100.0
+show_percentage = false
 
-[node name="BarContainer3" type="HBoxContainer" parent="MainContainer/TripCut/Mid/MidContainer/CharacterContainer/CharacterDetail/IdolScrollContainer/Idol/BarPanel/MainStatus" unique_id=1762001503]
+[node name="Label" type="Label" parent="MainContainer/TripCut/Mid/MidContainer/InteractArea/MainArea/CharacterContainer/CharacterDetail/Status/BarPanel/MainStatus/BarContainer2/PBar" unique_id=1167076706]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Na/Na"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("13_mg0hr")
+
+[node name="BarContainer3" type="HBoxContainer" parent="MainContainer/TripCut/Mid/MidContainer/InteractArea/MainArea/CharacterContainer/CharacterDetail/Status/BarPanel/MainStatus" unique_id=1762001503]
 layout_mode = 2
 size_flags_vertical = 0
 
-[node name="San" type="Label" parent="MainContainer/TripCut/Mid/MidContainer/CharacterContainer/CharacterDetail/IdolScrollContainer/Idol/BarPanel/MainStatus/BarContainer3" unique_id=1625943267]
+[node name="San" type="Label" parent="MainContainer/TripCut/Mid/MidContainer/InteractArea/MainArea/CharacterContainer/CharacterDetail/Status/BarPanel/MainStatus/BarContainer3" unique_id=1625943267]
 layout_mode = 2
-text = "理智"
+text = "san"
 
-[node name="PBar" type="ProgressBar" parent="MainContainer/TripCut/Mid/MidContainer/CharacterContainer/CharacterDetail/IdolScrollContainer/Idol/BarPanel/MainStatus/BarContainer3" unique_id=1156081602]
+[node name="PBar" type="ProgressBar" parent="MainContainer/TripCut/Mid/MidContainer/InteractArea/MainArea/CharacterContainer/CharacterDetail/Status/BarPanel/MainStatus/BarContainer3" unique_id=1156081602]
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_vertical = 1
 size_flags_stretch_ratio = 3.0
 step = 1.0
 value = 100.0
+show_percentage = false
 
-[node name="SelfTalk" type="RichTextLabel" parent="MainContainer/TripCut/Mid/MidContainer/CharacterContainer/CharacterDetail/IdolScrollContainer/Idol/BarPanel/MainStatus" unique_id=1186129568]
+[node name="Label" type="Label" parent="MainContainer/TripCut/Mid/MidContainer/InteractArea/MainArea/CharacterContainer/CharacterDetail/Status/BarPanel/MainStatus/BarContainer3/PBar" unique_id=1428200706]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Na/Na"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("14_6pkcj")
+
+[node name="SelfTalk" type="RichTextLabel" parent="MainContainer/TripCut/Mid/MidContainer/InteractArea/MainArea/CharacterContainer/CharacterDetail/Status/BarPanel/MainStatus" unique_id=1186129568]
 layout_mode = 2
-size_flags_vertical = 2
+size_flags_vertical = 3
 bbcode_enabled = true
-text = "“嗯？我可是最强的哦”"
-fit_content = true
-scroll_active = false
+text = "???"
+scroll_following = true
 script = ExtResource("11_346uf")
 
-[node name="SideStatus" type="VBoxContainer" parent="MainContainer/TripCut/Mid/MidContainer/CharacterContainer/CharacterDetail/IdolScrollContainer/Idol/BarPanel" unique_id=210672513]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="RichTextLabel" type="RichTextLabel" parent="MainContainer/TripCut/Mid/MidContainer/CharacterContainer/CharacterDetail/IdolScrollContainer/Idol/BarPanel/SideStatus" unique_id=1756119803]
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="InteractArea" type="HBoxContainer" parent="MainContainer/TripCut/Mid/MidContainer" unique_id=305452599]
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="RichTextPool" type="RichTextLabel" parent="MainContainer/TripCut/Mid/MidContainer/InteractArea" unique_id=908559741]
+[node name="RichTextPool" type="RichTextLabel" parent="MainContainer/TripCut/Mid/MidContainer/InteractArea/MainArea" unique_id=908559741]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -352,13 +395,134 @@ size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.5
 script = ExtResource("10_c7dvp")
 
+[node name="SideStatus" type="VBoxContainer" parent="MainContainer/TripCut/Mid/MidContainer/InteractArea/CommandPanel" unique_id=210672513]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="PlayerStatus" type="HBoxContainer" parent="MainContainer/TripCut/Mid/MidContainer/InteractArea/CommandPanel/SideStatus" unique_id=1845448471]
+layout_mode = 2
+
+[node name="Name" type="Label" parent="MainContainer/TripCut/Mid/MidContainer/InteractArea/CommandPanel/SideStatus/PlayerStatus" unique_id=1061327067]
+layout_mode = 2
+size_flags_vertical = 3
+text = "制作人"
+vertical_alignment = 1
+script = ExtResource("15_fxnlt")
+
+[node name="Detail" type="Button" parent="MainContainer/TripCut/Mid/MidContainer/InteractArea/CommandPanel/SideStatus/PlayerStatus" unique_id=269236528]
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 8
+text = "☆???"
+flat = true
+alignment = 2
+script = ExtResource("14_jvwtw")
+
+[node name="BarContainer" type="HBoxContainer" parent="MainContainer/TripCut/Mid/MidContainer/InteractArea/CommandPanel/SideStatus" unique_id=674647552]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="Stamina" type="Label" parent="MainContainer/TripCut/Mid/MidContainer/InteractArea/CommandPanel/SideStatus/BarContainer" unique_id=774451071]
+layout_mode = 2
+text = "stamina"
+
+[node name="PBar" type="ProgressBar" parent="MainContainer/TripCut/Mid/MidContainer/InteractArea/CommandPanel/SideStatus/BarContainer" unique_id=2026321329]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+size_flags_stretch_ratio = 3.0
+step = 1.0
+value = 100.0
+show_percentage = false
+
+[node name="Label" type="Label" parent="MainContainer/TripCut/Mid/MidContainer/InteractArea/CommandPanel/SideStatus/BarContainer/PBar" unique_id=1543085049]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Na/Na"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("20_6pkcj")
+
+[node name="BarContainer2" type="HBoxContainer" parent="MainContainer/TripCut/Mid/MidContainer/InteractArea/CommandPanel/SideStatus" unique_id=1612385047]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="Energy" type="Label" parent="MainContainer/TripCut/Mid/MidContainer/InteractArea/CommandPanel/SideStatus/BarContainer2" unique_id=355839597]
+layout_mode = 2
+text = "energy"
+
+[node name="PBar" type="ProgressBar" parent="MainContainer/TripCut/Mid/MidContainer/InteractArea/CommandPanel/SideStatus/BarContainer2" unique_id=1220692331]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+size_flags_stretch_ratio = 3.0
+step = 1.0
+value = 100.0
+show_percentage = false
+
+[node name="Label" type="Label" parent="MainContainer/TripCut/Mid/MidContainer/InteractArea/CommandPanel/SideStatus/BarContainer2/PBar" unique_id=483139312]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Na/Na"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("21_rnktc")
+
+[node name="BarContainer3" type="HBoxContainer" parent="MainContainer/TripCut/Mid/MidContainer/InteractArea/CommandPanel/SideStatus" unique_id=63749641]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="San" type="Label" parent="MainContainer/TripCut/Mid/MidContainer/InteractArea/CommandPanel/SideStatus/BarContainer3" unique_id=16034507]
+layout_mode = 2
+text = "san"
+
+[node name="PBar" type="ProgressBar" parent="MainContainer/TripCut/Mid/MidContainer/InteractArea/CommandPanel/SideStatus/BarContainer3" unique_id=626799987]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+size_flags_stretch_ratio = 3.0
+step = 1.0
+value = 100.0
+show_percentage = false
+
+[node name="Label" type="Label" parent="MainContainer/TripCut/Mid/MidContainer/InteractArea/CommandPanel/SideStatus/BarContainer3/PBar" unique_id=1336438839]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Na/Na"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("22_nyiev")
+
+[node name="MoneyLabel" type="Label" parent="MainContainer/TripCut/Mid/MidContainer/InteractArea/CommandPanel/SideStatus" unique_id=1448356294]
+layout_mode = 2
+text = "余额：????円"
+clip_text = true
+script = ExtResource("17_ocw3a")
+
+[node name="Label" type="Label" parent="MainContainer/TripCut/Mid/MidContainer/InteractArea/CommandPanel" unique_id=1742516702]
+layout_mode = 2
+text = "-------------------------------------------------------------------------------------------------------------------"
+clip_text = true
+
 [node name="Social" type="VBoxContainer" parent="MainContainer/TripCut/Mid/MidContainer/InteractArea/CommandPanel" unique_id=1957986818]
 layout_mode = 2
 size_flags_vertical = 3
 
 [node name="Label" type="Label" parent="MainContainer/TripCut/Mid/MidContainer/InteractArea/CommandPanel/Social" unique_id=2046215673]
 layout_mode = 2
-text = "社交"
+text = "???"
 
 [node name="ScrollContainer" type="ScrollContainer" parent="MainContainer/TripCut/Mid/MidContainer/InteractArea/CommandPanel/Social" unique_id=1092365156]
 layout_mode = 2
@@ -378,7 +542,7 @@ size_flags_stretch_ratio = 0.5
 
 [node name="Label" type="Label" parent="MainContainer/TripCut/Mid/MidContainer/InteractArea/CommandPanel/Special" unique_id=564046212]
 layout_mode = 2
-text = "特殊"
+text = "???"
 
 [node name="ScrollContainer" type="ScrollContainer" parent="MainContainer/TripCut/Mid/MidContainer/InteractArea/CommandPanel/Special" unique_id=1727493342]
 layout_mode = 2
@@ -397,7 +561,7 @@ size_flags_vertical = 3
 
 [node name="Label" type="Label" parent="MainContainer/TripCut/Mid/MidContainer/InteractArea/CommandPanel/Sekuhara" unique_id=1413243833]
 layout_mode = 2
-text = "骚扰"
+text = "???"
 
 [node name="ScrollContainer" type="ScrollContainer" parent="MainContainer/TripCut/Mid/MidContainer/InteractArea/CommandPanel/Sekuhara" unique_id=749572686]
 layout_mode = 2
@@ -413,11 +577,11 @@ size_flags_vertical = 3
 [node name="Stage" type="VBoxContainer" parent="MainContainer/TripCut/Mid/MidContainer/InteractArea/CommandPanel" unique_id=755745131]
 layout_mode = 2
 size_flags_vertical = 3
-size_flags_stretch_ratio = 0.25
+size_flags_stretch_ratio = 0.4
 
 [node name="Label" type="Label" parent="MainContainer/TripCut/Mid/MidContainer/InteractArea/CommandPanel/Stage" unique_id=652044281]
 layout_mode = 2
-text = "场景"
+text = "???"
 
 [node name="ScrollContainer" type="ScrollContainer" parent="MainContainer/TripCut/Mid/MidContainer/InteractArea/CommandPanel/Stage" unique_id=1460287679]
 layout_mode = 2
@@ -527,7 +691,8 @@ size_flags_horizontal = 3
 [node name="MainAniPlayer" type="AnimationPlayer" parent="." unique_id=527072742]
 libraries/ = SubResource("AnimationLibrary_blrdj")
 
-[connection signal="pressed" from="MainContainer/TripCut/Mid/MidContainer/CharacterContainer/CharacterDetail/IdolScrollContainer/Idol/IdolStatus/Detail" to="MainContainer/TripCut/Mid/MidContainer/CharacterContainer/CharacterDetail/IdolScrollContainer/Idol/IdolStatus/Detail" method="_on_pressed"]
-[connection signal="meta_clicked" from="MainContainer/TripCut/Mid/MidContainer/InteractArea/RichTextPool" to="MainContainer/TripCut/Mid/MidContainer/InteractArea/RichTextPool" method="_on_meta_clicked"]
+[connection signal="pressed" from="MainContainer/TripCut/Mid/MidContainer/InteractArea/MainArea/CharacterContainer/CharacterDetail/Status/BarPanel/MainStatus/IdolStatus/Detail" to="MainContainer/TripCut/Mid/MidContainer/InteractArea/MainArea/CharacterContainer/CharacterDetail/Status/BarPanel/MainStatus/IdolStatus/Detail" method="_on_pressed"]
+[connection signal="meta_clicked" from="MainContainer/TripCut/Mid/MidContainer/InteractArea/MainArea/RichTextPool" to="MainContainer/TripCut/Mid/MidContainer/InteractArea/MainArea/RichTextPool" method="_on_meta_clicked"]
+[connection signal="pressed" from="MainContainer/TripCut/Mid/MidContainer/InteractArea/CommandPanel/SideStatus/PlayerStatus/Detail" to="MainContainer/TripCut/Mid/MidContainer/InteractArea/CommandPanel/SideStatus/PlayerStatus/Detail" method="_on_pressed"]
 [connection signal="text_submitted" from="MainContainer/TripCut/Mid/MidContainer/LineEdit" to="MainContainer/TripCut/Mid/MidContainer/LineEdit" method="_on_text_submitted"]
 [connection signal="animation_finished" from="MainContainer/TripCut/MidAniPlayer" to="." method="_on_mid_ani_player_animation_finished"]

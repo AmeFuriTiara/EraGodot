@@ -69,7 +69,7 @@ func native_update_data():
 		if t_m < 10:
 			t_time = str(t_h) + ":0" + str(t_m)
 		else:
-			t_time = str(t_h) + str(t_m)
+			t_time = str(t_h) + ":" + str(t_m)
 	var weather = GlobalVar.in_game_data["weather"]
 	weather = GlobalVar.module_temp_data["variable"]["system"]["weathers"][weather][GlobalSys.system_lang_zone]
 	var temperature = str(GlobalVar.in_game_data["temperature"])

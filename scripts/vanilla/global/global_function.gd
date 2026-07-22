@@ -2,6 +2,7 @@ extends Node
 
 func _ready() -> void:
 	GlobalSignal.connect("_require_event_content",Callable(self,"_match_event"))
+	GlobalSignal.connect("_time_tick",Callable(self,"_time_tick"))
 
 func check_module():
 	# 检查模组文件夹是否存在
@@ -78,8 +79,12 @@ func _load_module(m_name:String):
 				if file_list.size() > 0:
 					for i in file_list:
 						if "init" in i:
-							pass
-						else:
+							var ipath = character_folder_path + "/" + i
+							var t_str = str(i).trim_suffix(".json")
+							GlobalVar.character_json_path[t_str] = ipath
+							_get_and_set(ipath, "init")
+					for i in file_list:
+						if "init" not in i:
 							var ipath = character_folder_path + "/" + i
 							var t_str = str(i).trim_suffix(".json")
 							GlobalVar.character_json_path[t_str] = ipath
@@ -121,8 +126,28 @@ func _get_and_set(path:String,target_block:String):
 			GlobalVar.module_temp_data["stage"] = data
 		"command":
 			GlobalVar.module_temp_data["command"] = data
+		"init":
+			if GlobalVar.module_temp_data.has("init") == false:
+				GlobalVar.module_temp_data["init"] = {}
+			GlobalVar.module_temp_data["init"][data["detail"]["gender"]] = data
 		"character":
 			GlobalVar.module_temp_data["character"][data["info"]["sid"]] = data
+			if GlobalVar.module_temp_data["character"][data["info"]["sid"]]["info"]["gender"]["gender"] == "male":
+				var c_key = GlobalVar.module_temp_data["init"]["male"]["detail"]["data"].keys()
+				var o_key = GlobalVar.module_temp_data["character"][data["info"]["sid"]]["detail"].keys()
+				for i in o_key:
+					if c_key.has(i):
+						c_key.erase(i)
+				for k in c_key:
+					GlobalVar.module_temp_data["character"][data["info"]["sid"]]["detail"][k] = GlobalVar.module_temp_data["init"]["male"]["detail"]["data"][k]
+			if GlobalVar.module_temp_data["character"][data["info"]["sid"]]["info"]["gender"]["gender"] == "female":
+				var c_key = GlobalVar.module_temp_data["init"]["female"]["detail"]["data"].keys()
+				var o_key = GlobalVar.module_temp_data["character"][data["info"]["sid"]]["detail"].keys()
+				for i in o_key:
+					if c_key.has(i):
+						c_key.erase(i)
+				for k in c_key:
+					GlobalVar.module_temp_data["character"][data["info"]["sid"]]["detail"][k] = GlobalVar.module_temp_data["init"]["female"]["detail"]["data"][k]
 		"colortable":
 			GlobalVar.module_temp_data["colortable"] = data
 		# 建立事件索引和触发条件
@@ -312,3 +337,25 @@ func _get_sprite_path(any:Array):
 					var file_path = fix_path + "/" + any[2] + ".png"
 					if FileAccess.file_exists(file_path):
 						return file_path
+
+func _check_if_character_stage():
+	var list = GlobalVar.in_game_data["character_on_stage"].duplicate_deep()
+	if list.has("player"):
+		list.erase("player")
+	if list.size() == 0:
+		return false
+	else:
+		return true
+
+func _time_tick(time:int):
+	var m = int(GlobalVar.in_game_data["time_m"])
+	if m + time > 60:
+		GlobalVar.in_game_data["time_h"] += 1
+		var left = m - 60 + time
+		GlobalVar.in_game_data["time_m"] = left
+	if m + time == 60:
+		GlobalVar.in_game_data["time_h"] += 1
+		var left = m - 60 + time
+		GlobalVar.in_game_data["time_m"] = left
+	if m + time < 60:
+		GlobalVar.in_game_data["time_m"] += time

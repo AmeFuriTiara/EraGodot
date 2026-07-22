@@ -18,16 +18,17 @@ var event_json_path:Dictionary = {}
 var playing_data:Dictionary = {}
 
 var in_game_data:Dictionary = {
+	"player_money":60000,
 	"player_ping":"asari",
 	"season":1,
 	"week_count":1,
 	"day_count":1,
-	"time_h":11,
-	"time_m":1,
+	"time_h":15,
+	"time_m":55,
 	"time_mark":"",
 	"weather":"sunny",
 	"temperature":17,
-	"now_location":["school","auditorium_outside"],
+	"now_location":["school","courtyard"],
 	"character_on_stage":["player","asari","saki"],
-	"select_one":"asari"
+	"select_one":""
 }

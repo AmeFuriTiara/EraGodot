@@ -27,6 +27,7 @@ signal _require_event_content
 signal _return_event_content
 signal _event_not_match
 
+signal _time_tick
 signal _lock_change
 signal _line_edit_update
 signal _call_function

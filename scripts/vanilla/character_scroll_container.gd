@@ -8,7 +8,7 @@ func _ready() -> void:
 	GlobalSignal.connect("_update_stage",Callable(self,"native_update_data"))
 
 func native_update_data():
-	var list = GlobalVar.in_game_data["character_on_stage"]
+	var list = GlobalVar.in_game_data["character_on_stage"].duplicate_deep()
 	if list.has("player"):
 		list.erase("player")
 	if list.size() > 0:
@@ -19,8 +19,9 @@ func native_update_data():
 			else:
 				i.free()
 	for i in list:
+		if GlobalVar.in_game_data["select_one"] == "":
+			GlobalVar.in_game_data["select_one"] = i
 		var unit = cha_unit.instantiate()
 		unit.s_name = i
 		cha_pool.add_child(unit)
 		unit.init_self()
-		
