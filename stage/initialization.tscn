@@ -292,6 +292,7 @@ size_flags_vertical = 0
 
 [node name="Stamina" type="Label" parent="MainContainer/TripCut/Mid/MidContainer/InteractArea/MainArea/CharacterContainer/CharacterDetail/Status/BarPanel/MainStatus/BarContainer" unique_id=701266980]
 layout_mode = 2
+size_flags_horizontal = 3
 text = "stamina"
 
 [node name="PBar" type="ProgressBar" parent="MainContainer/TripCut/Mid/MidContainer/InteractArea/MainArea/CharacterContainer/CharacterDetail/Status/BarPanel/MainStatus/BarContainer" unique_id=701965803]
@@ -321,6 +322,7 @@ size_flags_vertical = 0
 
 [node name="Energy" type="Label" parent="MainContainer/TripCut/Mid/MidContainer/InteractArea/MainArea/CharacterContainer/CharacterDetail/Status/BarPanel/MainStatus/BarContainer2" unique_id=679166966]
 layout_mode = 2
+size_flags_horizontal = 3
 text = "energy"
 
 [node name="PBar" type="ProgressBar" parent="MainContainer/TripCut/Mid/MidContainer/InteractArea/MainArea/CharacterContainer/CharacterDetail/Status/BarPanel/MainStatus/BarContainer2" unique_id=1886814224]
@@ -350,6 +352,7 @@ size_flags_vertical = 0
 
 [node name="San" type="Label" parent="MainContainer/TripCut/Mid/MidContainer/InteractArea/MainArea/CharacterContainer/CharacterDetail/Status/BarPanel/MainStatus/BarContainer3" unique_id=1625943267]
 layout_mode = 2
+size_flags_horizontal = 3
 text = "san"
 
 [node name="PBar" type="ProgressBar" parent="MainContainer/TripCut/Mid/MidContainer/InteractArea/MainArea/CharacterContainer/CharacterDetail/Status/BarPanel/MainStatus/BarContainer3" unique_id=1156081602]
@@ -424,6 +427,7 @@ size_flags_vertical = 0
 
 [node name="Stamina" type="Label" parent="MainContainer/TripCut/Mid/MidContainer/InteractArea/CommandPanel/SideStatus/BarContainer" unique_id=774451071]
 layout_mode = 2
+size_flags_horizontal = 3
 text = "stamina"
 
 [node name="PBar" type="ProgressBar" parent="MainContainer/TripCut/Mid/MidContainer/InteractArea/CommandPanel/SideStatus/BarContainer" unique_id=2026321329]
@@ -453,6 +457,7 @@ size_flags_vertical = 0
 
 [node name="Energy" type="Label" parent="MainContainer/TripCut/Mid/MidContainer/InteractArea/CommandPanel/SideStatus/BarContainer2" unique_id=355839597]
 layout_mode = 2
+size_flags_horizontal = 3
 text = "energy"
 
 [node name="PBar" type="ProgressBar" parent="MainContainer/TripCut/Mid/MidContainer/InteractArea/CommandPanel/SideStatus/BarContainer2" unique_id=1220692331]
@@ -482,6 +487,7 @@ size_flags_vertical = 0
 
 [node name="San" type="Label" parent="MainContainer/TripCut/Mid/MidContainer/InteractArea/CommandPanel/SideStatus/BarContainer3" unique_id=16034507]
 layout_mode = 2
+size_flags_horizontal = 3
 text = "san"
 
 [node name="PBar" type="ProgressBar" parent="MainContainer/TripCut/Mid/MidContainer/InteractArea/CommandPanel/SideStatus/BarContainer3" unique_id=626799987]

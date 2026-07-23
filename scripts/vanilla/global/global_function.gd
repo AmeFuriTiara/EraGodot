@@ -353,9 +353,87 @@ func _time_tick(time:int):
 		GlobalVar.in_game_data["time_h"] += 1
 		var left = m - 60 + time
 		GlobalVar.in_game_data["time_m"] = left
+		_climax_change()
 	if m + time == 60:
 		GlobalVar.in_game_data["time_h"] += 1
 		var left = m - 60 + time
 		GlobalVar.in_game_data["time_m"] = left
+		_climax_change()
 	if m + time < 60:
 		GlobalVar.in_game_data["time_m"] += time
+	if GlobalVar.in_game_data["time_h"] >= 24:
+		_day_change()
+
+func _day_change():
+	GlobalVar.in_game_data["time_h"] = 0
+	GlobalVar.in_game_data["day_count"] += 1
+	if GlobalVar.in_game_data["day_count"] == 8:
+		GlobalVar.in_game_data["day_count"] = 1
+		GlobalVar.in_game_data["week_count"] += 1
+	if GlobalVar.in_game_data["week_count"] == 5:
+		GlobalVar.in_game_data["week_count"] = 1
+		GlobalVar.in_game_data["season"] += 1
+	if GlobalVar.in_game_data["season"] == 5:
+		GlobalVar.in_game_data["season"] = 1
+		GlobalVar.weather_lock = false
+		GlobalVar.weather_lock_countdown = 0
+		_weather_change()
+
+func _climax_change():
+	_weather_change()
+	var tem_c = GlobalVar.module_temp_data["variable"]["system"]["weathers"][GlobalVar.in_game_data["weather"]]["condition"].duplicate_deep()
+	match GlobalVar.in_game_data["season"]:
+			1:
+				tem_c[0] += int(GlobalVar.module_temp_data["variable"]["system"]["seasons"]["season_one"]["temperature_ajust"])
+				tem_c[1] += int(GlobalVar.module_temp_data["variable"]["system"]["seasons"]["season_one"]["temperature_ajust"])
+			2:
+				tem_c[0] += int(GlobalVar.module_temp_data["variable"]["system"]["seasons"]["season_two"]["temperature_ajust"])
+				tem_c[1] += int(GlobalVar.module_temp_data["variable"]["system"]["seasons"]["season_two"]["temperature_ajust"])
+			3:
+				tem_c[0] += int(GlobalVar.module_temp_data["variable"]["system"]["seasons"]["season_three"]["temperature_ajust"])
+				tem_c[1] += int(GlobalVar.module_temp_data["variable"]["system"]["seasons"]["season_three"]["temperature_ajust"])
+			4:
+				tem_c[0] += int(GlobalVar.module_temp_data["variable"]["system"]["seasons"]["season_four"]["temperature_ajust"])
+				tem_c[1] += int(GlobalVar.module_temp_data["variable"]["system"]["seasons"]["season_four"]["temperature_ajust"])
+	if tem_c[0] <= GlobalVar.in_game_data["temperature"] && GlobalVar.in_game_data["temperature"] <= tem_c[1]:
+		if randi() % 2 == 0:
+			if GlobalVar.in_game_data["temperature"] + 1 <= tem_c[1]:
+				GlobalVar.in_game_data["temperature"] += 1
+		else:
+			if GlobalVar.in_game_data["temperature"] - 1 >= tem_c[0]:
+				GlobalVar.in_game_data["temperature"] -= 1
+	if tem_c[0] < GlobalVar.in_game_data["temperature"] && tem_c[1] <= GlobalVar.in_game_data["temperature"]:
+		GlobalVar.in_game_data["temperature"] -= 1
+	if tem_c[0] >= GlobalVar.in_game_data["temperature"] && tem_c[1] > GlobalVar.in_game_data["temperature"]:
+		GlobalVar.in_game_data["temperature"] += 1
+
+func _weather_change():
+	GlobalVar.weather_lock_countdown -= 1
+	if GlobalVar.weather_lock_countdown == 0 && GlobalVar.weather_lock == true:
+		GlobalVar.weather_lock = false
+	if GlobalVar.weather_lock == false:
+		var key = GlobalVar.module_temp_data["variable"]["system"]["weathers"].keys()
+		if key.has(GlobalVar.in_game_data["weather"]):
+			key.erase(GlobalVar.in_game_data["weather"])
+			for i in key:
+				match GlobalVar.in_game_data["season"]:
+					1:
+						if i in GlobalVar.module_temp_data["variable"]["system"]["seasons"]["season_one"]["filter"]:
+							key.erase(i)
+					2:
+						if i in GlobalVar.module_temp_data["variable"]["system"]["seasons"]["season_two"]["filter"]:
+							key.erase(i)
+					3:
+						if i in GlobalVar.module_temp_data["variable"]["system"]["seasons"]["season_three"]["filter"]:
+							key.erase(i)
+					4:
+						if i in GlobalVar.module_temp_data["variable"]["system"]["seasons"]["season_four"]["filter"]:
+							key.erase(i)
+		var rad = randi_range(1,4)
+		match rad:
+			1:
+				var w_rad = randi_range(0,key.size() - 1)
+				var t_weather = key[w_rad]
+				GlobalVar.in_game_data["weather"] = t_weather
+				GlobalVar.weather_lock_countdown = 6
+				GlobalVar.weather_lock = true

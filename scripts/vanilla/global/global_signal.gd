@@ -27,6 +27,7 @@ signal _require_event_content
 signal _return_event_content
 signal _event_not_match
 
+signal _weather_change
 signal _time_tick
 signal _lock_change
 signal _line_edit_update
